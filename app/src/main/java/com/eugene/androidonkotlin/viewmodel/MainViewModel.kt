@@ -26,7 +26,7 @@ class MainViewModel(
     private fun getDataFromLocalSource() {
         observeForLiveData.value = AppState.Loading
         Thread {
-            sleep(5000)
+            sleep(3000)
             observeForLiveData.postValue(AppState.Success(repoImp.getMovieFromLocalServer()))
         }.start()
     }

@@ -6,9 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.lifecycle.Observer
 import com.eugene.androidonkotlin.viewmodel.MainViewModel
@@ -20,9 +17,23 @@ import com.google.android.material.snackbar.Snackbar
 
 class MainFragment : Fragment() {
 
-    private lateinit var viewModel: MainViewModel
     private var _binding: MainFragmentBinding? = null
     private val binding get() = _binding!!
+    private lateinit var viewModel: MainViewModel
+    private val adapter = MainFragmentAdapter(object : OnItemViewClickListener {
+        override fun onItemViewClick(movie: Movie) {
+            val manager = activity?.supportFragmentManager
+            if (manager != null) {
+                val bundle = Bundle()
+                bundle.putParcelable(DescriptionFragment.BUNDLE_EXTRA, movie)
+                manager.beginTransaction()
+                    .replace(R.id.main_container, DescriptionFragment.newInstance(bundle))
+                    .addToBackStack("")
+                    .commitAllowingStateLoss()
+            }
+        }
+
+    })
 
     companion object {
         fun  newInstance() = MainFragment()
@@ -34,13 +45,16 @@ class MainFragment : Fragment() {
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.mainFragmentRecyclerView.adapter = adapter
+
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         viewModel.getLiveData().observe(viewLifecycleOwner, Observer {
             renderData(it)
         })
-        viewModel.getMovieFromLocal()    }
+        viewModel.getMovieFromLocal()
+    }
 
     private fun renderData(appState: AppState) {
         when (appState) {
@@ -49,23 +63,30 @@ class MainFragment : Fragment() {
             }
 
             is AppState.Success -> {
-                val movieSuccess = appState.movieSuccess
                 binding.loadingLayout.visibility = View.GONE
-                setData(movieSuccess)
+                adapter.setMovie(appState.movieSuccess)
             }
 
             is AppState.Error -> {
+                var itemCard = view?.findViewById<CardView>(R.id.item_card)
+
+
                 binding.loadingLayout.visibility = View.GONE
-                Snackbar.make(binding.itemCard, "Error", Snackbar.LENGTH_INDEFINITE)
+                if (itemCard != null) {
+                    Snackbar.make(itemCard, "Error", Snackbar.LENGTH_INDEFINITE)
                         .setAction("Reload") {viewModel.getMovieFromLocal()}
                         .show()
+                }
             }
         }
     }
 
-    private fun setData(movieAppState: Movie) {
-        binding.itemTitle.text = movieAppState.title
-        binding.itemImage.setImageResource(movieAppState.image)
-        binding.itemRating.text = movieAppState.rating
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
+
+    interface OnItemViewClickListener {
+        fun onItemViewClick(movie: Movie)
     }
 }
