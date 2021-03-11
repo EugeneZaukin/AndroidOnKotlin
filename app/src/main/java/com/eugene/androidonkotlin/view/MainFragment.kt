@@ -19,21 +19,28 @@ class MainFragment : Fragment() {
 
     private var _binding: MainFragmentBinding? = null
     private val binding get() = _binding!!
-    private lateinit var viewModel: MainViewModel
+    private val viewModel: MainViewModel by lazy { ViewModelProvider(this).get(MainViewModel::class.java) }
+//    private val adapter = MainFragmentAdapter(object : OnItemViewClickListener {
+//        override fun onItemViewClick(movie: Movie) {
+//            activity?.supportFragmentManager?.apply {
+//                beginTransaction()
+//                    .replace(R.id.main_container, DescriptionFragment.newInstance(Bundle().apply {
+//                        putParcelable(DescriptionFragment.BUNDLE_EXTRA, movie)
+//                    }))
+//                    .addToBackStack("")
+//                    .commitAllowingStateLoss()
+//            }
+//        }
+//    })
+
+    //Реализация extension-функции
     private val adapter = MainFragmentAdapter(object : OnItemViewClickListener {
         override fun onItemViewClick(movie: Movie) {
-            val manager = activity?.supportFragmentManager
-            if (manager != null) {
-                val bundle = Bundle()
-                bundle.putParcelable(DescriptionFragment.BUNDLE_EXTRA, movie)
-                manager.beginTransaction()
-                    .replace(R.id.main_container, DescriptionFragment.newInstance(bundle))
-                    .addToBackStack("")
-                    .commitAllowingStateLoss()
-            }
+            val bundle = Bundle().apply { putParcelable(DescriptionFragment.BUNDLE_EXTRA, movie) }
+            activity?.supportFragmentManager?.addToBackStack(DescriptionFragment::class, bundle)
         }
-
     })
+
 
     companion object {
         fun  newInstance() = MainFragment()
@@ -48,8 +55,6 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.mainFragmentRecyclerView.adapter = adapter
-
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         viewModel.getLiveData().observe(viewLifecycleOwner, Observer {
             renderData(it)
         })
@@ -90,3 +95,5 @@ class MainFragment : Fragment() {
         fun onItemViewClick(movie: Movie)
     }
 }
+
+
