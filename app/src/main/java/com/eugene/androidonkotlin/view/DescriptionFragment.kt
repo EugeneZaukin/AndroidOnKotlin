@@ -33,8 +33,7 @@ class DescriptionFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val movie = arguments?.getParcelable<Movie>(BUNDLE_EXTRA)
-        if (movie != null) {
+        arguments?.getParcelable<Movie>(BUNDLE_EXTRA)?.let { movie ->
             binding.titleDescription.text = movie.title
             binding.imageViewDescription.setImageResource(movie.image)
             binding.textViewAnyInformation.text = movie.rating

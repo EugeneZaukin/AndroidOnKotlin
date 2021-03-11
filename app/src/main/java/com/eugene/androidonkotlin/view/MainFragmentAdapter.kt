@@ -42,13 +42,12 @@ class MainFragmentAdapter(private var onItemViewClickListener: MainFragment.OnIt
     inner class MainViewHolder(view: View): RecyclerView.ViewHolder(view) {
 
         fun bind(movie: Movie) {
-            itemView.findViewById<CardView>(R.id.main_fragment_recycler_view)
-            itemView.findViewById<TextView>(R.id.item_title).text = movie.title
-            itemView.findViewById<ImageView>(R.id.item_image).setImageResource(movie.image)
-            itemView.findViewById<TextView>(R.id.item_rating).text = movie.rating
-
-            itemView.setOnClickListener {
-                onItemViewClickListener?.onItemViewClick(movie)
+            itemView.apply {
+                findViewById<CardView>(R.id.main_fragment_recycler_view)
+                findViewById<TextView>(R.id.item_title).text = movie.title
+                findViewById<ImageView>(R.id.item_image).setImageResource(movie.image)
+                findViewById<TextView>(R.id.item_rating).text = movie.rating
+                setOnClickListener { onItemViewClickListener?.onItemViewClick(movie) }
             }
         }
     }
