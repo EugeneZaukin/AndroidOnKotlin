@@ -3,6 +3,7 @@ package com.eugene.androidonkotlin.view
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.eugene.androidonkotlin.R
+import com.eugene.androidonkotlin.view.main.MainFragment
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
