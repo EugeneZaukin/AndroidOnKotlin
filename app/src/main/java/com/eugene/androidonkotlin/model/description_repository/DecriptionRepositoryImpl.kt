@@ -4,11 +4,6 @@ import com.eugene.androidonkotlin.model.MovieDTO
 import retrofit2.Callback
 
 class DecriptionRepositoryImpl(private val remoteDataSource: RemoteDataSource) : DescriptionRepository {
-
-//    override fun getMovieDescriptionFromServer(requesLink: String, callback: okhttp3.Callback) {
-//        remoteDataSource.getMovieDescription(requesLink, callback)
-//    }
-
     override fun getMovieDescriptionFromServer(callback: Callback<MovieDTO>) {
         remoteDataSource.getMovieDescription(callback)
     }

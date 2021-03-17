@@ -11,8 +11,7 @@ import com.eugene.androidonkotlin.databinding.FragmentDescriptionBinding
 import com.eugene.androidonkotlin.model.Movie
 import com.eugene.androidonkotlin.viewmodel.AppState
 import com.eugene.androidonkotlin.viewmodel.DescriptionViewModel
-
-private const val MAIN_LINK = "https://api.kinopoisk.cloud/movies/1143242/token/fe198beca21b5f01d844f2db52d2bb2f"
+import com.squareup.picasso.Picasso
 
 class DescriptionFragment : Fragment() {
 
@@ -45,7 +44,7 @@ class DescriptionFragment : Fragment() {
         movieBundle = arguments?.getParcelable(BUNDLE_EXTRA) ?: Movie()
 
         viewModel.getLiveData().observe(viewLifecycleOwner, Observer { renderData(it) })
-        viewModel.getMovieFromRemoteSource(MAIN_LINK)
+        viewModel.getMovieFromRemoteSource()
     }
 
     private fun renderData(appState: AppState) {
@@ -65,6 +64,8 @@ class DescriptionFragment : Fragment() {
     private fun setMovie(movie: Movie) {
         with(binding) {
             titleDescription.text = movie.title
+            Picasso.get().load("https:${movie.image}").into(imageViewDescription)
+            imageViewDescription.drawable
             textViewAnyInformation.text = movie.rating
             textViewDescription.text = movie.description
         }

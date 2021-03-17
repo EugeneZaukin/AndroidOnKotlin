@@ -19,7 +19,7 @@ class DescriptionViewModel(
 
     fun getLiveData() = descriprionLiveData
 
-    fun getMovieFromRemoteSource(requestLink: String) {
+    fun getMovieFromRemoteSource() {
         descriprionLiveData.value = AppState.Loading
         descriptionRepositoryImpl.getMovieDescriptionFromServer(callback)
     }
