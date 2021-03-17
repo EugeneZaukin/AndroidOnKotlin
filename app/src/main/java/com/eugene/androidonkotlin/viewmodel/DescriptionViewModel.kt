@@ -7,11 +7,6 @@ import com.eugene.androidonkotlin.model.description_repository.DecriptionReposit
 import com.eugene.androidonkotlin.model.description_repository.DescriptionRepository
 import com.eugene.androidonkotlin.model.description_repository.RemoteDataSource
 import com.eugene.androidonkotlin.model.utils.convertDtoToModel
-import com.google.gson.Gson
-import okhttp3.Call
-import okhttp3.Callback
-import okhttp3.Response
-import java.io.IOException
 
 private const val SERVER_ERROR = "Ошибка сервера"
 private const val REQUEST_ERROR = "Ошибка запроса на сервер"
@@ -26,13 +21,16 @@ class DescriptionViewModel(
 
     fun getMovieFromRemoteSource(requestLink: String) {
         descriprionLiveData.value = AppState.Loading
-        descriptionRepositoryImpl.getMovieDescriptionFromServer(requestLink, callback)
+        descriptionRepositoryImpl.getMovieDescriptionFromServer(callback)
     }
 
-    private val callback = object : Callback {
+    private val callback = object : retrofit2.Callback<MovieDTO> {
 
-        override fun onResponse(call: Call, response: Response) {
-            val serverResponse: String? = response.body()?.string()
+        override fun onResponse(
+            call: retrofit2.Call<MovieDTO>,
+            response: retrofit2.Response<MovieDTO>
+        ) {
+            val serverResponse: MovieDTO? = response.body()
             descriprionLiveData.postValue(
                 if (response.isSuccessful && serverResponse != null) {
                     checkResponse(serverResponse)
@@ -42,18 +40,17 @@ class DescriptionViewModel(
             )
         }
 
-        override fun onFailure(call: Call, e: IOException) {
-            descriprionLiveData.postValue(AppState.Error(Throwable(e?.message?: REQUEST_ERROR)))
+        override fun onFailure(call: retrofit2.Call<MovieDTO>, t: Throwable) {
+            descriprionLiveData.postValue(AppState.Error(Throwable(t.message?: REQUEST_ERROR)))
         }
 
-        private fun checkResponse(serverResponse: String): AppState {
-            val movieDTO: MovieDTO = Gson().fromJson(serverResponse, MovieDTO::class.java)
+        private fun checkResponse(serverResponse: MovieDTO): AppState {
+            val movieDTO: MovieDTO = serverResponse
             return if (movieDTO.title == null || movieDTO.rating_kinopoisk == null || movieDTO.description == null) {
                 AppState.Error(Throwable(CORRUPTED_DATA))
             } else {
                 AppState.Success(convertDtoToModel(movieDTO))
             }
         }
-
     }
 }
