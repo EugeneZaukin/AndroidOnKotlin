@@ -1,20 +1,20 @@
 package com.eugene.androidonkotlin.view.main
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.cardview.widget.CardView
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import com.eugene.androidonkotlin.viewmodel.MainViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.eugene.androidonkotlin.R
 import com.eugene.androidonkotlin.databinding.MainFragmentBinding
 import com.eugene.androidonkotlin.model.Movie
 import com.eugene.androidonkotlin.view.addToBackStack
 import com.eugene.androidonkotlin.view.details.DescriptionFragment
 import com.eugene.androidonkotlin.viewmodel.AppState
+import com.eugene.androidonkotlin.viewmodel.MainViewModel
 import com.google.android.material.snackbar.Snackbar
 
 class MainFragment : Fragment() {
@@ -45,11 +45,13 @@ class MainFragment : Fragment() {
 
 
     companion object {
-        fun  newInstance() = MainFragment()
+        fun newInstance() = MainFragment()
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         _binding = MainFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -81,7 +83,7 @@ class MainFragment : Fragment() {
                 binding.loadingLayout.visibility = View.GONE
                 if (itemCard != null) {
                     Snackbar.make(itemCard, "Error", Snackbar.LENGTH_INDEFINITE)
-                        .setAction("Reload") {viewModel.getMovieFromLocal()}
+                        .setAction("Reload") { viewModel.getMovieFromLocal() }
                         .show()
                 }
             }
