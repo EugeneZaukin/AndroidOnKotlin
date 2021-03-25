@@ -2,11 +2,15 @@ package com.eugene.androidonkotlin.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.eugene.androidonkotlin.model.Movie
 import com.eugene.androidonkotlin.model.MovieDTO
 import com.eugene.androidonkotlin.model.description_repository.DecriptionRepositoryImpl
 import com.eugene.androidonkotlin.model.description_repository.DescriptionRepository
 import com.eugene.androidonkotlin.model.description_repository.RemoteDataSource
 import com.eugene.androidonkotlin.model.utils.convertDtoToModel
+import com.eugene.androidonkotlin.repository.LocalRepository
+import com.eugene.androidonkotlin.repository.LocalRepositoryImpl
+import com.eugene.androidonkotlin.viewmodel.App.Companion.getHistoryDao
 
 private const val SERVER_ERROR = "Ошибка сервера"
 private const val REQUEST_ERROR = "Ошибка запроса на сервер"
@@ -14,7 +18,9 @@ private const val CORRUPTED_DATA = "Неполные данные"
 
 class DescriptionViewModel(
     private val descriprionLiveData: MutableLiveData<AppState> = MutableLiveData(),
-    private val descriptionRepositoryImpl: DescriptionRepository = DecriptionRepositoryImpl(RemoteDataSource())
+    private val descriptionRepositoryImpl: DescriptionRepository = DecriptionRepositoryImpl(RemoteDataSource()),
+
+    private val historyRepository: LocalRepository = LocalRepositoryImpl(getHistoryDao())
 ): ViewModel() {
 
     fun getLiveData() = descriprionLiveData
@@ -23,6 +29,12 @@ class DescriptionViewModel(
         descriprionLiveData.value = AppState.Loading
         descriptionRepositoryImpl.getMovieDescriptionFromServer(callback)
     }
+
+    fun saveMovieToDB(movie: Movie) {
+        historyRepository.saveEntity(Movie(movie.title, "", movie.rating, ""))
+    }
+
+
 
     private val callback = object : retrofit2.Callback<MovieDTO> {
 
