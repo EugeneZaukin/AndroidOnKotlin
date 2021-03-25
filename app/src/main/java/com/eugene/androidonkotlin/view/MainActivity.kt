@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity() {
         bottomNavMenu.setOnClickListener(View.OnClickListener {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.main_container, SettingsFragment.newInstance())
+                .addToBackStack("")
                 .commitAllowingStateLoss()
         })
     }
