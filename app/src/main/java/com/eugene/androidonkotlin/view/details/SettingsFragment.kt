@@ -55,6 +55,15 @@ class SettingsFragment : Fragment() {
         viewModel.historyLiveData.observe(viewLifecycleOwner, Observer { renderData(it) })
         viewModel.getAllHistory()
 
+        button_contacts.setOnClickListener {
+            activity?.supportFragmentManager?.apply {
+                beginTransaction()
+                    .replace(R.id.main_container, ContentProviderFragment.newInstance())
+                    .addToBackStack("")
+                    .commitAllowingStateLoss()
+            }
+        }
+
     }
 
     private fun renderData(appState: AppState) {
