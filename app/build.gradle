@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-android-extensions'
     id 'kotlin-kapt'
+
 }
 
 android {
@@ -58,6 +59,7 @@ dependencies {
 
     //Room
     implementation 'androidx.room:room-runtime:2.2.6'
+    implementation 'com.google.firebase:firebase-messaging:21.0.1'
     kapt 'androidx.room:room-compiler:2.2.6'
 
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
@@ -65,3 +67,6 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 }
+
+
+apply plugin: 'com.google.gms.google-services'
