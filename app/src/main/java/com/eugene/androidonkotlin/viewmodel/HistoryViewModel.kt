@@ -2,8 +2,8 @@ package com.eugene.androidonkotlin.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.eugene.androidonkotlin.repository.LocalRepository
-import com.eugene.androidonkotlin.repository.LocalRepositoryImpl
+import com.eugene.androidonkotlin.repository.local.LocalRepository
+import com.eugene.androidonkotlin.repository.local.LocalRepositoryImpl
 import com.eugene.androidonkotlin.viewmodel.App.Companion.getHistoryDao
 
 class HistoryViewModel(val historyLiveData: MutableLiveData<AppState> = MutableLiveData(),

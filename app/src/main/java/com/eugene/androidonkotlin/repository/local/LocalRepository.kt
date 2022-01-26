@@ -1,4 +1,4 @@
-package com.eugene.androidonkotlin.repository
+package com.eugene.androidonkotlin.repository.local
 
 import com.eugene.androidonkotlin.model.Movie
 

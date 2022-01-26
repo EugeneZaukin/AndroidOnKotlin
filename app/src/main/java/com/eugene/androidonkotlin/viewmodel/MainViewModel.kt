@@ -1,12 +1,14 @@
 package com.eugene.androidonkotlin.viewmodel
 
 import androidx.lifecycle.ViewModel
-import com.eugene.androidonkotlin.model.Repository
-import com.eugene.androidonkotlin.model.RepositoryImpl
+import com.eugene.androidonkotlin.repository.remote.IRepository
+import com.eugene.androidonkotlin.repository.remote.IRepositoryImpl
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
-class MainViewModel(private val repoImp: Repository = RepositoryImpl()) : ViewModel() {
+class MainViewModel(private val repoImp: IRepository = IRepositoryImpl()) : ViewModel() {
     private val _loadingProgress = MutableStateFlow<Float>(1f)
     val loadingProgress get() = _loadingProgress.asStateFlow()
 
@@ -21,6 +23,12 @@ class MainViewModel(private val repoImp: Repository = RepositoryImpl()) : ViewMo
 
 
     fun getMoviesFromServer() {
-        repoImp.getMovieFromServer()
+        repoImp.getMoviesFromServer()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                { it.},
+                {}
+            )
     }
 }

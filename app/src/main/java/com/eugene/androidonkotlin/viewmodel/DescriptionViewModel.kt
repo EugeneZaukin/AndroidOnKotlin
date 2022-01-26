@@ -8,8 +8,8 @@ import com.eugene.androidonkotlin.model.description_repository.DecriptionReposit
 import com.eugene.androidonkotlin.model.description_repository.DescriptionRepository
 import com.eugene.androidonkotlin.model.description_repository.RemoteDataSource
 import com.eugene.androidonkotlin.model.utils.convertDtoToModel
-import com.eugene.androidonkotlin.repository.LocalRepository
-import com.eugene.androidonkotlin.repository.LocalRepositoryImpl
+import com.eugene.androidonkotlin.repository.local.LocalRepository
+import com.eugene.androidonkotlin.repository.local.LocalRepositoryImpl
 import com.eugene.androidonkotlin.viewmodel.App.Companion.getHistoryDao
 
 private const val SERVER_ERROR = "Ошибка сервера"
