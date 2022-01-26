@@ -1,11 +1,11 @@
 package com.eugene.androidonkotlin.view.main
 
+import androidx.fragment.app.Fragment
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.cardview.widget.CardView
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.eugene.androidonkotlin.R
@@ -22,18 +22,6 @@ class MainFragment : Fragment() {
     private var _binding: MainFragmentBinding? = null
     private val binding get() = _binding!!
     private val viewModel: MainViewModel by lazy { ViewModelProvider(this).get(MainViewModel::class.java) }
-//    private val adapter = MainFragmentAdapter(object : OnItemViewClickListener {
-//        override fun onItemViewClick(movie: Movie) {
-//            activity?.supportFragmentManager?.apply {
-//                beginTransaction()
-//                    .replace(R.id.main_container, DescriptionFragment.newInstance(Bundle().apply {
-//                        putParcelable(DescriptionFragment.BUNDLE_EXTRA, movie)
-//                    }))
-//                    .addToBackStack("")
-//                    .commitAllowingStateLoss()
-//            }
-//        }
-//    })
 
     //Реализация extension-функции
     private val adapter = MainFragmentAdapter(object : OnItemViewClickListener {
