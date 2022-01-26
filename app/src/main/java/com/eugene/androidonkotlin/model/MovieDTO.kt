@@ -1,12 +1,17 @@
 package com.eugene.androidonkotlin.model
 
-import com.google.gson.annotations.SerializedName
-
 data class MovieDTO(
+        val adult: Boolean,
+        val backdropPath: String,
+        val genreIDS: List<Long>,
+        val id: Long,
+        val originalTitle: String,
+        val overview: String,
+        val popularity: Double,
+        val posterPath: String,
+        val releaseDate: String,
         val title: String,
-        val poster: String,
-        val description: String,
-
-        @SerializedName("rating_kinopoisk")
-        val rating: String
+        val video: Boolean,
+        val voteAverage: Double,
+        val voteCount: Long
 )

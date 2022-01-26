@@ -27,7 +27,7 @@ class MainViewModel(private val repoImp: IRepository = IRepositoryImpl()) : View
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
-                { it.},
+                { },
                 {}
             )
     }
