@@ -41,7 +41,7 @@ class DescriptionFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        movieBundle = arguments?.getParcelable(BUNDLE_EXTRA) ?: Movie()
+//        movieBundle = arguments?.getParcelable(BUNDLE_EXTRA) ?: Movie()
 
         viewModel.getLiveData().observe(viewLifecycleOwner, Observer { renderData(it) })
         viewModel.getMovieFromRemoteSource()
@@ -62,14 +62,14 @@ class DescriptionFragment : Fragment() {
     }
 
     private fun setMovie(movie: Movie) {
-        saveMovie(movie)
-        with(binding) {
-            titleDescription.text = movie.title
-            Picasso.get().load("https:${movie.image}").into(imageViewDescription)
-            imageViewDescription.drawable
-            textViewAnyInformation.text = movie.rating
-            textViewDescription.text = movie.description
-        }
+//        saveMovie(movie)
+//        with(binding) {
+//            titleDescription.text = movie.title
+//            Picasso.get().load("https:${movie.image}").into(imageViewDescription)
+//            imageViewDescription.drawable
+//            textViewAnyInformation.text = movie.rating
+//            textViewDescription.text = movie.description
+//        }
     }
 
     private fun saveMovie(movie: Movie) {

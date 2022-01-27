@@ -1,6 +1,7 @@
 package com.eugene.androidonkotlin.viewmodel
 
 import androidx.lifecycle.ViewModel
+import com.eugene.androidonkotlin.model.Movie
 import com.eugene.androidonkotlin.repository.remote.IRepository
 import com.eugene.androidonkotlin.repository.remote.IRepositoryImpl
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -12,30 +13,16 @@ class MainViewModel(private val repoImp: IRepository = IRepositoryImpl()) : View
     private val _loadingProgress = MutableStateFlow<Float>(1f)
     val loadingProgress get() = _loadingProgress.asStateFlow()
 
-    private val _image = MutableStateFlow<String>("")
-    val image get() = _image.asStateFlow()
-
-    private val _title = MutableStateFlow<String>("")
-    val title get() = _title.asStateFlow()
-
-    private val _rating = MutableStateFlow<String>("")
-    val rating get() = _rating.asStateFlow()
-
+    private val _moviesList = MutableStateFlow<List<Movie>>(listOf())
+    val moviesList get() = _moviesList.asStateFlow()
 
     fun getMoviesFromServer() {
         repoImp.getMoviesFromServer()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
-                {
-                    println(it . results [0].title)
-                    println(it . results [1].title)
-                    println(it . results [2].title)
-                    println(it . results [3].title)
-                },
-
-
-                { print("lol") }
+                { _moviesList.value = it.results },
+                { print("error") }
             )
     }
 }

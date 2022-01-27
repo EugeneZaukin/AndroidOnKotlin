@@ -3,11 +3,9 @@ package com.eugene.androidonkotlin.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.eugene.androidonkotlin.model.Movie
-import com.eugene.androidonkotlin.model.MovieDTO
 import com.eugene.androidonkotlin.model.description_repository.DecriptionRepositoryImpl
 import com.eugene.androidonkotlin.model.description_repository.DescriptionRepository
 import com.eugene.androidonkotlin.model.description_repository.RemoteDataSource
-import com.eugene.androidonkotlin.model.utils.convertDtoToModel
 import com.eugene.androidonkotlin.repository.local.LocalRepository
 import com.eugene.androidonkotlin.repository.local.LocalRepositoryImpl
 import com.eugene.androidonkotlin.viewmodel.App.Companion.getHistoryDao
@@ -31,18 +29,18 @@ class DescriptionViewModel(
     }
 
     fun saveMovieToDB(movie: Movie) {
-        historyRepository.saveEntity(Movie(movie.title, "", movie.rating, ""))
+//        historyRepository.saveEntity(Movie(movie.title, "", movie.rating, ""))
     }
 
 
 
-    private val callback = object : retrofit2.Callback<MovieDTO> {
+    private val callback = object : retrofit2.Callback<Movie> {
 
         override fun onResponse(
-            call: retrofit2.Call<MovieDTO>,
-            response: retrofit2.Response<MovieDTO>
+            call: retrofit2.Call<Movie>,
+            response: retrofit2.Response<Movie>
         ) {
-            val serverResponse: MovieDTO? = response.body()
+            val serverResponse: Movie? = response.body()
             descriprionLiveData.postValue(
                 if (response.isSuccessful && serverResponse != null) {
                     checkResponse(serverResponse)
@@ -52,12 +50,12 @@ class DescriptionViewModel(
             )
         }
 
-        override fun onFailure(call: retrofit2.Call<MovieDTO>, t: Throwable) {
+        override fun onFailure(call: retrofit2.Call<Movie>, t: Throwable) {
             descriprionLiveData.postValue(AppState.Error(Throwable(t.message?: REQUEST_ERROR)))
         }
 
-        private fun checkResponse(serverResponse: MovieDTO): AppState {
-            val movieDTO: MovieDTO = serverResponse
+        private fun checkResponse(serverResponse: Movie): AppState {
+            val movie: Movie = serverResponse
             return AppState.Error(Throwable())
         }
     }

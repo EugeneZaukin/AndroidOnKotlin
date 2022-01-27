@@ -1,12 +1,13 @@
 package com.eugene.androidonkotlin.view.main
 
-import android.view.LayoutInflater
-import android.view.ViewGroup
+import android.view.*
+import com.bumptech.glide.Glide
 import com.eugene.androidonkotlin.R
 import com.eugene.androidonkotlin.databinding.RecyclerItemBinding
+import com.eugene.androidonkotlin.model.Movie
 import com.mikepenz.fastadapter.binding.AbstractBindingItem
 
-class MovieItem(): AbstractBindingItem<RecyclerItemBinding>() {
+class MovieItem(private val movie: Movie): AbstractBindingItem<RecyclerItemBinding>() {
     override val type: Int
         get() = R.id.item_card
 
@@ -15,7 +16,13 @@ class MovieItem(): AbstractBindingItem<RecyclerItemBinding>() {
     }
 
     override fun bindView(binding: RecyclerItemBinding, payloads: List<Any>) {
-        binding.itemTitle.text = "Android"
-        binding.itemRating.text = "7.8"
+        binding.apply {
+            itemTitle.text = movie.title
+            itemRating.text = movie.voteAverage.toString()
+
+            Glide.with(root)
+                .load("https://image.tmdb.org/t/p/w500${movie.posterPath}")
+                .into(itemImage)
+        }
     }
 }
