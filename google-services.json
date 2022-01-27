@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1073806784575",
+    "project_id": "androidonkotlin-95e73",
+    "storage_bucket": "androidonkotlin-95e73.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1073806784575:android:309419a4f85c49f703608a",
+        "android_client_info": {
+          "package_name": "com.eugene.androidonkotlin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1073806784575-p3uf6absn4ialrjjedmj72cbgp77t22o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCeLK2tBAs1ULRmM8U762htXtIPYnEI_ZA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1073806784575-p3uf6absn4ialrjjedmj72cbgp77t22o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
