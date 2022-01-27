@@ -27,8 +27,15 @@ class MainViewModel(private val repoImp: IRepository = IRepositoryImpl()) : View
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
-                { },
-                {}
+                {
+                    println(it . results [0].title)
+                    println(it . results [1].title)
+                    println(it . results [2].title)
+                    println(it . results [3].title)
+                },
+
+
+                { print("lol") }
             )
     }
 }

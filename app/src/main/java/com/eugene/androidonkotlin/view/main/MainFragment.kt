@@ -47,6 +47,8 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
         itemAdapter.add(listOf(MovieItem(), MovieItem(), MovieItem()))
+
+        viewModel.getMoviesFromServer()
     }
 
 
