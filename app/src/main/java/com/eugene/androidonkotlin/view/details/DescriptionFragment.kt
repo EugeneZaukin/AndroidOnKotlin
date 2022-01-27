@@ -62,6 +62,7 @@ class DescriptionFragment : Fragment() {
     }
 
     private fun setMovie(movie: Movie) {
+        saveMovie(movie)
         with(binding) {
             titleDescription.text = movie.title
             Picasso.get().load("https:${movie.image}").into(imageViewDescription)
@@ -70,6 +71,11 @@ class DescriptionFragment : Fragment() {
             textViewDescription.text = movie.description
         }
     }
+
+    private fun saveMovie(movie: Movie) {
+        viewModel.saveMovieToDB(movie)
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
