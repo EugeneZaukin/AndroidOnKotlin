@@ -13,22 +13,12 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/recycler_item" />
 
-<!--    <FrameLayout-->
-<!--        android:id="@+id/loadingLayout"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:visibility="gone"-->
-<!--        tools:visibility="visible">-->
-
-<!--    </FrameLayout>-->
-
-<!--    <ProgressBar-->
-<!--        style="?android:attr/progressBarStyleLarge"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_gravity="center"-->
-<!--        tools:layout_editor_absoluteX="55dp"-->
-<!--        tools:layout_editor_absoluteY="46dp" />-->
+    <ProgressBar
+        android:id="@+id/loadingLayout"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"/>
 
 </FrameLayout>
 

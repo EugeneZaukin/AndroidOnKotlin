@@ -17,11 +17,16 @@ class MainViewModel(private val repoImp: IRepository = IRepositoryImpl()) : View
     val moviesList get() = _moviesList.asStateFlow()
 
     fun getMoviesFromServer() {
+        _loadingProgress.value = 1f
+
         repoImp.getMoviesFromServer()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
-                { _moviesList.value = it.results },
+                {
+                    _moviesList.value = it.results
+                    _loadingProgress.value = 0f
+                },
                 { print("error") }
             )
     }

@@ -45,6 +45,11 @@ class MainFragment : Fragment() {
 
     private fun displayMovies() {
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewModel.loadingProgress
+                .collect { binding.loadingLayout.alpha = it }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.moviesList
                 .collect {
                     FastAdapterDiffUtil[itemAdapter] = it.map { movie -> MovieItem(movie) }
