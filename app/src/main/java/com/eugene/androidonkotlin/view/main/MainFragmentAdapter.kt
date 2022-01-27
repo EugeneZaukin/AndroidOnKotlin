@@ -9,6 +9,7 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.eugene.androidonkotlin.R
 import com.eugene.androidonkotlin.model.Movie
+import com.squareup.picasso.Picasso
 
 class MainFragmentAdapter(private var onItemViewClickListener: MainFragment.OnItemViewClickListener?): RecyclerView.Adapter<MainFragmentAdapter.MainViewHolder>() {
 
@@ -45,7 +46,7 @@ class MainFragmentAdapter(private var onItemViewClickListener: MainFragment.OnIt
             itemView.apply {
                 findViewById<CardView>(R.id.main_fragment_recycler_view)
                 findViewById<TextView>(R.id.item_title).text = movie.title
-                findViewById<ImageView>(R.id.item_image).setImageResource(movie.image)
+                Picasso.get().load("https://res.cloudinary.com/demo/video/upload/dog.png").into(findViewById<ImageView>(R.id.item_image))
                 findViewById<TextView>(R.id.item_rating).text = movie.rating
                 setOnClickListener { onItemViewClickListener?.onItemViewClick(movie) }
             }
