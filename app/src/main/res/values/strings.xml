@@ -3,6 +3,7 @@
     <string name="button_gps">Карты</string>
     <string name="button_loc">Точка нахождения</string>
     <string name="button_search">Поиск</string>
-
-
+    <string name="button">Кнопка</string>
+    <string name="button2">Data class Вывести данные</string>
+    <string name="button3">Object class copy</string>
 </resources>

@@ -7,3 +7,43 @@
     tools:context=".MainActivity">
 
 </FrameLayout>
+    <TextView
+        android:id="@+id/text_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/tv_size"
+        android:textSize="@dimen/text_size"
+        android:textColor="@android:color/holo_green_dark"
+        app:layout_constraintBottom_toTopOf="@+id/button_test" />
+
+    <Button
+        android:id="@+id/button_test"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button"
+        android:textSize="@dimen/text_size"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_view"/>
+
+    <Button
+        android:id="@+id/button_data_class"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button2"
+        android:textSize="@dimen/text_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_test" />
+
+    <Button
+    android:id="@+id/button_object_class"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/button3"
+    android:textSize="@dimen/text_size"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/button_data_class" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
