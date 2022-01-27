@@ -4,6 +4,8 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.eugene.androidonkotlin.R
+import com.eugene.androidonkotlin.view.details.DescriptionFragment
+import com.eugene.androidonkotlin.view.main.MainFragment
 import java.lang.IllegalStateException
 import kotlin.reflect.KClass
 

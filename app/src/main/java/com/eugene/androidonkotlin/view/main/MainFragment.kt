@@ -1,4 +1,4 @@
-package com.eugene.androidonkotlin.view
+package com.eugene.androidonkotlin.view.main
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -12,6 +12,8 @@ import com.eugene.androidonkotlin.viewmodel.MainViewModel
 import com.eugene.androidonkotlin.R
 import com.eugene.androidonkotlin.databinding.MainFragmentBinding
 import com.eugene.androidonkotlin.model.Movie
+import com.eugene.androidonkotlin.view.addToBackStack
+import com.eugene.androidonkotlin.view.details.DescriptionFragment
 import com.eugene.androidonkotlin.viewmodel.AppState
 import com.google.android.material.snackbar.Snackbar
 

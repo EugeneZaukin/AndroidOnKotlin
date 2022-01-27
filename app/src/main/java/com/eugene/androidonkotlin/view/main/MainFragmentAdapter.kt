@@ -1,4 +1,4 @@
-package com.eugene.androidonkotlin.view
+package com.eugene.androidonkotlin.view.main
 
 import android.view.LayoutInflater
 import android.view.View
@@ -22,12 +22,12 @@ class MainFragmentAdapter(private var onItemViewClickListener: MainFragment.OnIt
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): MainFragmentAdapter.MainViewHolder {
+    ): MainViewHolder {
         return MainViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.recycler_item, parent, false)
                 as View)
     }
 
-    override fun onBindViewHolder(holder: MainFragmentAdapter.MainViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
         holder.bind(movieData[position])
     }
 
