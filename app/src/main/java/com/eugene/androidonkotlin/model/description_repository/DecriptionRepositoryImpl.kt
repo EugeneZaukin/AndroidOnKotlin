@@ -5,7 +5,7 @@ import retrofit2.Callback
 
 class DecriptionRepositoryImpl(private val remoteDataSource: RemoteDataSource) : DescriptionRepository {
     override fun getMovieDescriptionFromServer(callback: Callback<MovieDTO>) {
-        remoteDataSource.getMovieDescription(callback)
+//        remoteDataSource.getMovieDescription(callback)
     }
 
 }

@@ -7,7 +7,6 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.eugene.androidonkotlin.R
 import com.eugene.androidonkotlin.model.Movie
-import kotlinx.android.synthetic.main.item_data_base.view.*
 
 class HistoryAdapter: RecyclerView.Adapter<HistoryAdapter.RecyclerItemViewHolder>() {
     private var data: List<Movie> = arrayListOf()
@@ -35,12 +34,12 @@ class HistoryAdapter: RecyclerView.Adapter<HistoryAdapter.RecyclerItemViewHolder
 
     inner class RecyclerItemViewHolder(view: View): RecyclerView.ViewHolder(view) {
         fun bind(data: Movie) {
-            if (layoutPosition != RecyclerView.NO_POSITION) {
-                itemView.recycler_view_item.text = String.format("%s %s", data.title, data.rating)
-                itemView.setOnClickListener {
-                    Toast.makeText(itemView.context, "on_click: ${data.title}", Toast.LENGTH_SHORT).show()
-                }
-            }
+//            if (layoutPosition != RecyclerView.NO_POSITION) {
+//                itemView.recycler_view_item.text = String.format("%s %s", data.title, data.rating)
+//                itemView.setOnClickListener {
+//                    Toast.makeText(itemView.context, "on_click: ${data.title}", Toast.LENGTH_SHORT).show()
+//                }
+//            }
         }
     }
 }

@@ -58,11 +58,7 @@ class DescriptionViewModel(
 
         private fun checkResponse(serverResponse: MovieDTO): AppState {
             val movieDTO: MovieDTO = serverResponse
-            return if (movieDTO.title == null || movieDTO.rating_kinopoisk == null || movieDTO.description == null) {
-                AppState.Error(Throwable(CORRUPTED_DATA))
-            } else {
-                AppState.Success(convertDtoToModel(movieDTO))
-            }
+            return AppState.Error(Throwable())
         }
     }
 }

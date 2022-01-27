@@ -12,7 +12,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.eugene.androidonkotlin.R
 import com.eugene.androidonkotlin.viewmodel.AppState
 import com.eugene.androidonkotlin.viewmodel.HistoryViewModel
-import kotlinx.android.synthetic.main.fragment_settings.*
 
 class SettingsFragment : Fragment() {
     private val KEY_ADULT = "KEY_ADULT"
@@ -50,38 +49,38 @@ class SettingsFragment : Fragment() {
                 }
             }
         }
-
-        history_fragment_recycler.adapter = adapter
-        viewModel.historyLiveData.observe(viewLifecycleOwner, Observer { renderData(it) })
-        viewModel.getAllHistory()
-
-        button_contacts.setOnClickListener {
-            activity?.supportFragmentManager?.apply {
-                beginTransaction()
-                    .replace(R.id.main_container, ContentProviderFragment.newInstance())
-                    .addToBackStack("")
-                    .commitAllowingStateLoss()
-            }
-        }
+//
+//        history_fragment_recycler.adapter = adapter
+//        viewModel.historyLiveData.observe(viewLifecycleOwner, Observer { renderData(it) })
+//        viewModel.getAllHistory()
+//
+//        button_contacts.setOnClickListener {
+//            activity?.supportFragmentManager?.apply {
+//                beginTransaction()
+//                    .replace(R.id.main_container, ContentProviderFragment.newInstance())
+//                    .addToBackStack("")
+//                    .commitAllowingStateLoss()
+//            }
+//        }
 
     }
 
-    private fun renderData(appState: AppState) {
-        when (appState) {
-            is AppState.Loading -> {
-                history_fragment_recycler.visibility = View.GONE
-            }
-
-            is AppState.Success -> {
-                history_fragment_recycler.visibility = View.VISIBLE
-                adapter.setData(appState.movieSuccess)
-            }
-
-            is AppState.Error -> {
-                history_fragment_recycler.visibility = View.GONE
-            }
-        }
-    }
+//    private fun renderData(appState: AppState) {
+//        when (appState) {
+//            is AppState.Loading -> {
+//                history_fragment_recycler.visibility = View.GONE
+//            }
+//
+//            is AppState.Success -> {
+//                history_fragment_recycler.visibility = View.VISIBLE
+//                adapter.setData(appState.movieSuccess)
+//            }
+//
+//            is AppState.Error -> {
+//                history_fragment_recycler.visibility = View.GONE
+//            }
+//        }
+//    }
 
 
     companion object {

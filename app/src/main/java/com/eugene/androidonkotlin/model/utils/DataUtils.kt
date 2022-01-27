@@ -5,7 +5,7 @@ import com.eugene.androidonkotlin.model.MovieDTO
 import com.eugene.androidonkotlin.room.HistoryEntity
 
 fun convertDtoToModel(movieDTO: MovieDTO) : List<Movie> {
-    return listOf(Movie(movieDTO.title!!, movieDTO.poster!!, movieDTO.rating_kinopoisk!!, movieDTO.description!!))
+    return listOf()
 }
 
 fun convertHistoryEntityToMovie(entityList: List<HistoryEntity>): List<Movie> {
