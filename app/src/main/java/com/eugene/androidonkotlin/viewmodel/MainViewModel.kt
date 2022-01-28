@@ -1,12 +1,16 @@
 package com.eugene.androidonkotlin.viewmodel
 
 import androidx.lifecycle.ViewModel
+import com.eugene.androidonkotlin.CodeErrors
 import com.eugene.androidonkotlin.model.Movie
 import com.eugene.androidonkotlin.repository.remote.IRepository
 import com.eugene.androidonkotlin.repository.remote.IRepositoryImpl
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.coroutines.channels.BufferOverflow
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 
 class MainViewModel(private val repoImp: IRepository = IRepositoryImpl()) : ViewModel() {
@@ -15,6 +19,10 @@ class MainViewModel(private val repoImp: IRepository = IRepositoryImpl()) : View
 
     private val _moviesList = MutableStateFlow<List<Movie>>(listOf())
     val moviesList get() = _moviesList.asStateFlow()
+
+    private val _errorCode =
+        MutableSharedFlow<CodeErrors>(0,1, BufferOverflow.DROP_OLDEST)
+    val errorCode = _errorCode.asSharedFlow()
 
     fun getMoviesFromServer() {
         _loadingProgress.value = 1f
@@ -27,7 +35,14 @@ class MainViewModel(private val repoImp: IRepository = IRepositoryImpl()) : View
                     _moviesList.value = it.results
                     _loadingProgress.value = 0f
                 },
-                { print("error") }
+                {
+                    _loadingProgress.value = 0f
+                    when {
+                        it.toString().contains("404") -> _errorCode.tryEmit(CodeErrors.REQUEST_ERROR)
+                        it.toString().contains("500") -> _errorCode.tryEmit(CodeErrors.SERVER_ERROR)
+                        else -> _errorCode.tryEmit(CodeErrors.NETWORK_ERROR)
+                    }
+                }
             )
     }
 }

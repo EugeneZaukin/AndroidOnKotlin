@@ -2,6 +2,7 @@ package com.eugene.androidonkotlin.view.main
 
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.*
 import androidx.lifecycle.lifecycleScope
 import com.eugene.androidonkotlin.databinding.MainFragmentBinding
@@ -53,6 +54,11 @@ class MainFragment : Fragment() {
             launch {
                 viewModel.moviesList
                     .collect { FastAdapterDiffUtil[itemAdapter] = it.map { movie -> MovieItem(movie) } }
+            }
+
+            launch {
+                viewModel.errorCode
+                    .collect { Toast.makeText(context, it.idMessage, Toast.LENGTH_SHORT).show() }
             }
         }
     }
