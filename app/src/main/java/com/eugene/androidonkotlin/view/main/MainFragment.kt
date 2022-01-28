@@ -10,6 +10,7 @@ import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.mikepenz.fastadapter.diff.FastAdapterDiffUtil
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 class MainFragment : Fragment() {
     private var _binding: MainFragmentBinding? = null
@@ -45,15 +46,14 @@ class MainFragment : Fragment() {
 
     private fun displayMovies() {
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.loadingProgress
-                .collect { binding.loadingLayout.alpha = it }
-        }
+            launch {
+                viewModel.loadingProgress.collect { binding.loadingLayout.alpha = it }
+            }
 
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.moviesList
-                .collect {
-                    FastAdapterDiffUtil[itemAdapter] = it.map { movie -> MovieItem(movie) }
-                }
+            launch {
+                viewModel.moviesList
+                    .collect { FastAdapterDiffUtil[itemAdapter] = it.map { movie -> MovieItem(movie) } }
+            }
         }
     }
 
