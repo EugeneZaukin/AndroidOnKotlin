@@ -6,18 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/description_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginBottom="20dp"
-        android:text="@string/description_movie_title"
-        android:textSize="25sp"
-        android:textStyle="italic"
-        app:layout_constraintBottom_toBottomOf="@+id/description_image"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <ImageView
         android:id="@+id/description_image"
         android:layout_width="match_parent"
@@ -27,6 +15,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@android:drawable/ic_menu_crop" />
+
+    <TextView
+        android:id="@+id/description_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginBottom="20dp"
+        android:text="@string/description_movie_title"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="@+id/description_image"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/description_information"

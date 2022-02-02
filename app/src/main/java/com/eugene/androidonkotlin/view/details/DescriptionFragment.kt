@@ -48,6 +48,14 @@ class DescriptionFragment : Fragment() {
                             .into(binding.descriptionImage)
                     }
             }
+
+            launch {
+                viewModel.movieTitle.collect { binding.descriptionTitle.text = it }
+            }
+
+            launch {
+                viewModel.movieOverview.collect { binding.descriptionOverview.text = it }
+            }
         }
     }
 
