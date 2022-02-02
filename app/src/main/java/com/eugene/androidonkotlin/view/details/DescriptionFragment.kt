@@ -2,64 +2,55 @@ package com.eugene.androidonkotlin.view.details
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import com.eugene.androidonkotlin.databinding.FragmentDescriptionBinding
+import android.view.*
+import androidx.core.os.bundleOf
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import com.bumptech.glide.Glide
+import com.eugene.androidonkotlin.databinding.DescriptionFragmentBinding
 import com.eugene.androidonkotlin.model.Movie
-import com.eugene.androidonkotlin.viewmodel.AppState
 import com.eugene.androidonkotlin.viewmodel.DescriptionViewModel
-import com.squareup.picasso.Picasso
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 class DescriptionFragment : Fragment() {
-
-    private var _binding: FragmentDescriptionBinding? = null
+    private var _binding: DescriptionFragmentBinding? = null
     private val binding get() = _binding!!
-    private lateinit var movieBundle: Movie
-
-    private val viewModel: DescriptionViewModel by lazy { ViewModelProvider(this).get(DescriptionViewModel::class.java) }
-
-    companion object {
-        const val BUNDLE_EXTRA = "movie"
-
-        fun newInstance(bundle: Bundle): DescriptionFragment {
-            val fragment = DescriptionFragment()
-            fragment.arguments = bundle
-            return fragment
-        }
-    }
+    private val viewModel by viewModels<DescriptionViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-       _binding = FragmentDescriptionBinding.inflate(inflater, container, false)
+       _binding = DescriptionFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        movieBundle = arguments?.getParcelable(BUNDLE_EXTRA) ?: Movie()
-
-        viewModel.getLiveData().observe(viewLifecycleOwner, Observer { renderData(it) })
-        viewModel.getMovieFromRemoteSource()
+        val id = arguments?.getLong("movie id")
+        viewModel.saveId(id!!)
+        displayMovie()
+        viewModel.getMovieFromServer()
     }
 
-    private fun renderData(appState: AppState) {
-        when(appState) {
-            is AppState.Success -> {
-                setMovie(appState.movieSuccess[0])
+    private fun displayMovie() {
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            launch {
+                viewModel.loadingProgress.collect { binding.descriptionLoadingLayout.alpha = it }
             }
-            is AppState.Loading -> {
 
-            }
-            is AppState.Error -> {
-
+            launch {
+                viewModel.movieImage
+                    .collect {
+                        Glide.with(this@DescriptionFragment)
+                            .load("https://image.tmdb.org/t/p/w500${it}")
+                            .into(binding.descriptionImage)
+                    }
             }
         }
     }
+
 
     private fun setMovie(movie: Movie) {
 //        saveMovie(movie)
@@ -73,12 +64,22 @@ class DescriptionFragment : Fragment() {
     }
 
     private fun saveMovie(movie: Movie) {
-        viewModel.saveMovieToDB(movie)
+//        viewModel.saveMovieToDB(movie)
     }
 
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+        const val BUNDLE_EXTRA = "movie"
+
+        fun newInstance(movieId: Long): DescriptionFragment {
+            val fragment = DescriptionFragment()
+            fragment.arguments = bundleOf("movie id" to movieId)
+            return fragment
+        }
     }
 }

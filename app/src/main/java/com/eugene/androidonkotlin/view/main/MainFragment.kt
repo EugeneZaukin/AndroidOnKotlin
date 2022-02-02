@@ -5,7 +5,9 @@ import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.*
 import androidx.lifecycle.lifecycleScope
+import com.eugene.androidonkotlin.R
 import com.eugene.androidonkotlin.databinding.MainFragmentBinding
+import com.eugene.androidonkotlin.view.details.DescriptionFragment
 import com.eugene.androidonkotlin.viewmodel.MainViewModel
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
@@ -16,7 +18,7 @@ import kotlinx.coroutines.launch
 class MainFragment : Fragment() {
     private var _binding: MainFragmentBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: MainViewModel by viewModels<MainViewModel>()
+    private val viewModel by viewModels<MainViewModel>()
     private lateinit var itemAdapter: ItemAdapter<MovieItem>
     private lateinit var fastAdapter: FastAdapter<MovieItem>
 
@@ -32,6 +34,7 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
         displayMovies()
+        openDescriptionMovie()
         viewModel.getMoviesFromServer()
     }
 
@@ -61,6 +64,25 @@ class MainFragment : Fragment() {
                     .collect { Toast.makeText(context, it.idMessage, Toast.LENGTH_SHORT).show() }
             }
         }
+    }
+
+    private fun openDescriptionMovie() {
+        fastAdapter.onClickListener = { _, _, _, position ->
+            viewModel.goToDescriptionScreen(position)
+            false
+        }
+
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewModel.switchDescriptionFragment
+                .collect { addTransaction(it) }
+        }
+    }
+
+    private fun addTransaction(movieId: Long) {
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.main_container, DescriptionFragment.newInstance(movieId))
+            .addToBackStack("main")
+            .commitAllowingStateLoss()
     }
 
     override fun onDestroy() {

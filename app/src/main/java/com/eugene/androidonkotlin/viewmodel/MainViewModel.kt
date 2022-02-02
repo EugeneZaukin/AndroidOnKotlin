@@ -8,10 +8,7 @@ import com.eugene.androidonkotlin.repository.remote.IRepositoryImpl
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.channels.BufferOverflow
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.*
 
 class MainViewModel(private val repoImp: IRepository = IRepositoryImpl()) : ViewModel() {
     private val _loadingProgress = MutableStateFlow<Float>(1f)
@@ -23,6 +20,10 @@ class MainViewModel(private val repoImp: IRepository = IRepositoryImpl()) : View
     private val _errorCode =
         MutableSharedFlow<CodeErrors>(0,1, BufferOverflow.DROP_OLDEST)
     val errorCode = _errorCode.asSharedFlow()
+
+    private val _switchDescriptionFragment: MutableSharedFlow<Long> =
+        MutableSharedFlow(0, 1, BufferOverflow.DROP_OLDEST)
+    val switchDescriptionFragment get() = _switchDescriptionFragment.asSharedFlow()
 
     fun getMoviesFromServer() {
         _loadingProgress.value = 1f
@@ -44,5 +45,9 @@ class MainViewModel(private val repoImp: IRepository = IRepositoryImpl()) : View
                     }
                 }
             )
+    }
+
+    fun goToDescriptionScreen(pos: Int) {
+        _switchDescriptionFragment.tryEmit(_moviesList.value[pos].id)
     }
 }

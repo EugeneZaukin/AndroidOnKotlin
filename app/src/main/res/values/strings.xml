@@ -3,7 +3,6 @@
     <string name="title_home">Home</string>
     <string name="title_search">Search</string>
     <string name="title_settings">Settings</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="description">Description</string>
     <string name="any_information">Any information</string>
     <string name="movie_title">Movie Title</string>
@@ -11,4 +10,6 @@
     <string name="network_error">Нет подключения к интернету</string>
     <string name="request_error">Ошибка запроса на сервер</string>
     <string name="server_error">Ошибка на сервере</string>
+
+    <string name="description_movie_title">Title</string>
 </resources>

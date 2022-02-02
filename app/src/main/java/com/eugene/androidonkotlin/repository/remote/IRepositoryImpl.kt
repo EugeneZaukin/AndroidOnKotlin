@@ -1,7 +1,6 @@
 package com.eugene.androidonkotlin.repository.remote
 
-import com.eugene.androidonkotlin.model.JsonWelcome
-import com.eugene.androidonkotlin.model.Movie
+import com.eugene.androidonkotlin.model.*
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 import retrofit2.Retrofit
@@ -18,6 +17,10 @@ class IRepositoryImpl: IRepository {
 
     override fun getMoviesFromServer(): Single<JsonWelcome> {
         return movieApi.getMovies()
+    }
+
+    override fun getMovieFromServer(movieId: Long): Single<Welcome> {
+        return movieApi.getMovie(movieId)
     }
 
     override fun getMovieFromLocalServer(): List<Movie> {
