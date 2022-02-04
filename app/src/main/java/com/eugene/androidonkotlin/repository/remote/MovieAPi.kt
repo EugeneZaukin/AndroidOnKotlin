@@ -10,5 +10,5 @@ interface MovieAPi {
     fun getMovies(): Single<JsonWelcome>
 
     @GET("3/movie/{movie_id}?api_key=02c5cb1d2287733c0c4e83e609c37856&language=ru")
-    fun getMovie(@Path("movie_id") movieId: Long): Single<Welcome>
+    fun getMovie(@Path("movie_id") movieId: Long): Single<DescriptionMovie>
 }

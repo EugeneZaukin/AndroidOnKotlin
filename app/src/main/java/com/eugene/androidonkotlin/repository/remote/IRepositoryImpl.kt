@@ -19,11 +19,11 @@ class IRepositoryImpl: IRepository {
         return movieApi.getMovies()
     }
 
-    override fun getMovieFromServer(movieId: Long): Single<Welcome> {
+    override fun getMovieFromServer(movieId: Long): Single<DescriptionMovie> {
         return movieApi.getMovie(movieId)
     }
 
-    override fun getMovieFromLocalServer(): List<Movie> {
+    override fun getMovieFromLocalServer(): List<MainMovie> {
        return listOf()
     }
 }

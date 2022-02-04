@@ -1,13 +1,5 @@
 package com.eugene.androidonkotlin.view.details
 
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
-import androidx.recyclerview.widget.RecyclerView
-import com.eugene.androidonkotlin.R
-import com.eugene.androidonkotlin.model.Movie
-
 //class HistoryAdapter: RecyclerView.Adapter<HistoryAdapter.RecyclerItemViewHolder>() {
 //    private var data: List<Movie> = arrayListOf()
 //

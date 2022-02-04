@@ -6,7 +6,7 @@ import io.reactivex.rxjava3.core.Single
 interface IRepository {
     fun getMoviesFromServer(): Single<JsonWelcome>
 
-    fun getMovieFromServer(movieId: Long): Single<Welcome>
+    fun getMovieFromServer(movieId: Long): Single<DescriptionMovie>
 
-    fun getMovieFromLocalServer(): List<Movie>
+    fun getMovieFromLocalServer(): List<MainMovie>
 }
