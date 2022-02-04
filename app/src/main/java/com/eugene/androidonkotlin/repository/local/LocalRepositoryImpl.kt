@@ -1,9 +1,8 @@
 package com.eugene.androidonkotlin.repository.local
 
 import com.eugene.androidonkotlin.model.Movie
-import com.eugene.androidonkotlin.room.HistoryDao
 
-class LocalRepositoryImpl(private val localDataSource: HistoryDao): LocalRepository {
+class LocalRepositoryImpl(): LocalRepository {
 
     override fun getAllHistory(): List<Movie> {
         return listOf()

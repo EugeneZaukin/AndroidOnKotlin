@@ -7,7 +7,6 @@ import com.eugene.androidonkotlin.repository.local.LocalRepository
 import com.eugene.androidonkotlin.repository.local.LocalRepositoryImpl
 import com.eugene.androidonkotlin.repository.remote.IRepository
 import com.eugene.androidonkotlin.repository.remote.IRepositoryImpl
-import com.eugene.androidonkotlin.viewmodel.App.Companion.getHistoryDao
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -16,7 +15,7 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 
 class DescriptionViewModel(
-    private val historyRepository: LocalRepository = LocalRepositoryImpl(getHistoryDao()),
+//    private val historyRepository: LocalRepository = LocalRepositoryImpl(getHistoryDao()),
     private val repoImp: IRepository = IRepositoryImpl()
 ): ViewModel() {
     private val _loadingProgress = MutableStateFlow<Float>(1f)

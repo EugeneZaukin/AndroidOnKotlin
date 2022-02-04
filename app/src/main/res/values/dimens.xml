@@ -12,7 +12,6 @@
     <dimen name="tv_margin_start">120dp</dimen>
     <dimen name="tv_text_size">25sp</dimen>
     <dimen name="margin">15dp</dimen>
-    <dimen name="text_size">15sp</dimen>
     <dimen name="margin_top">100dp</dimen>
     <dimen name="text_size">20sp</dimen>
     <dimen name="tv_size">150dp</dimen>
