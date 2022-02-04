@@ -1,9 +1,15 @@
 <resources>
     <string name="app_name">AndroidOnKotlin</string>
-    <string name="button_gps">Карты</string>
-    <string name="button_loc">Точка нахождения</string>
-    <string name="button_search">Поиск</string>
-    <string name="button">Кнопка</string>
-    <string name="button2">Data class Вывести данные</string>
-    <string name="button3">Object class copy</string>
+    <string name="title_home">Home</string>
+    <string name="title_search">Search</string>
+    <string name="title_settings">Settings</string>
+    <string name="description">Description</string>
+    <string name="any_information">Any information</string>
+    <string name="movie_title">Movie Title</string>
+    <string name="rating_7_0">RATING 7.0</string>
+    <string name="network_error">Нет подключения к интернету</string>
+    <string name="request_error">Ошибка запроса на сервер</string>
+    <string name="server_error">Ошибка на сервере</string>
+
+    <string name="description_movie_title">Title</string>
 </resources>

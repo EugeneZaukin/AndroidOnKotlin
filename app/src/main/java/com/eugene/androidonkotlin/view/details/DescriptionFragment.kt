@@ -1,0 +1,93 @@
+package com.eugene.androidonkotlin.view.details
+
+import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.*
+import androidx.core.os.bundleOf
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import com.bumptech.glide.Glide
+import com.eugene.androidonkotlin.databinding.DescriptionFragmentBinding
+import com.eugene.androidonkotlin.model.Movie
+import com.eugene.androidonkotlin.viewmodel.DescriptionViewModel
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
+
+class DescriptionFragment : Fragment() {
+    private var _binding: DescriptionFragmentBinding? = null
+    private val binding get() = _binding!!
+    private val viewModel by viewModels<DescriptionViewModel>()
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+       _binding = DescriptionFragmentBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val id = arguments?.getLong("movie id")
+        viewModel.saveId(id!!)
+        displayMovie()
+        viewModel.getMovieFromServer()
+    }
+
+    private fun displayMovie() {
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            launch {
+                viewModel.loadingProgress.collect { binding.descriptionLoadingLayout.alpha = it }
+            }
+
+            launch {
+                viewModel.movieImage
+                    .collect {
+                        Glide.with(this@DescriptionFragment)
+                            .load("https://image.tmdb.org/t/p/w500${it}")
+                            .into(binding.descriptionImage)
+                    }
+            }
+
+            launch {
+                viewModel.movieTitle.collect { binding.descriptionTitle.text = it }
+            }
+
+            launch {
+                viewModel.movieOverview.collect { binding.descriptionOverview.text = it }
+            }
+        }
+    }
+
+
+    private fun setMovie(movie: Movie) {
+//        saveMovie(movie)
+//        with(binding) {
+//            titleDescription.text = movie.title
+//            Picasso.get().load("https:${movie.image}").into(imageViewDescription)
+//            imageViewDescription.drawable
+//            textViewAnyInformation.text = movie.rating
+//            textViewDescription.text = movie.description
+//        }
+    }
+
+    private fun saveMovie(movie: Movie) {
+//        viewModel.saveMovieToDB(movie)
+    }
+
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    companion object {
+        const val BUNDLE_EXTRA = "movie"
+
+        fun newInstance(movieId: Long): DescriptionFragment {
+            val fragment = DescriptionFragment()
+            fragment.arguments = bundleOf("movie id" to movieId)
+            return fragment
+        }
+    }
+}
