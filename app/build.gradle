@@ -23,6 +23,14 @@ android {
         viewBinding true
     }
 
+    //Pulling key from file
+    buildTypes.each {
+        Properties properties = new Properties()
+        properties.load(project.rootProject.file("apikey.properties.txt").newDataInputStream())
+        def apiKey = properties.getProperty("my_api_key", "")
+        it.buildConfigField "String", "MY_API_KEY", apiKey
+    }
+
     buildTypes {
         release {
             minifyEnabled false
