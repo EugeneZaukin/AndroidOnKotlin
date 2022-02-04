@@ -1,14 +1,13 @@
 package com.eugene.androidonkotlin.view.details
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import androidx.fragment.app.*
 import android.view.*
 import androidx.core.os.bundleOf
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.eugene.androidonkotlin.databinding.DescriptionFragmentBinding
-import com.eugene.androidonkotlin.model.Movie
+import com.eugene.androidonkotlin.model.MainMovie
 import com.eugene.androidonkotlin.viewmodel.DescriptionViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -60,7 +59,7 @@ class DescriptionFragment : Fragment() {
     }
 
 
-    private fun setMovie(movie: Movie) {
+    private fun setMovie(mainMovie: MainMovie) {
 //        saveMovie(movie)
 //        with(binding) {
 //            titleDescription.text = movie.title
@@ -71,7 +70,7 @@ class DescriptionFragment : Fragment() {
 //        }
     }
 
-    private fun saveMovie(movie: Movie) {
+    private fun saveMovie(mainMovie: MainMovie) {
 //        viewModel.saveMovieToDB(movie)
     }
 

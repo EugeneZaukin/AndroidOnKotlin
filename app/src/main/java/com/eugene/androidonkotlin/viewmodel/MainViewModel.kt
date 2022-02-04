@@ -2,7 +2,7 @@ package com.eugene.androidonkotlin.viewmodel
 
 import androidx.lifecycle.ViewModel
 import com.eugene.androidonkotlin.CodeErrors
-import com.eugene.androidonkotlin.model.Movie
+import com.eugene.androidonkotlin.model.MainMovie
 import com.eugene.androidonkotlin.repository.remote.IRepository
 import com.eugene.androidonkotlin.repository.remote.IRepositoryImpl
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -13,7 +13,7 @@ class MainViewModel(private val repoImp: IRepository = IRepositoryImpl()) : View
     private val _loadingProgress = MutableStateFlow<Float>(1f)
     val loadingProgress get() = _loadingProgress.asStateFlow()
 
-    private val _moviesList = MutableStateFlow<List<Movie>>(listOf())
+    private val _moviesList = MutableStateFlow<List<MainMovie>>(listOf())
     val moviesList get() = _moviesList.asStateFlow()
 
     private val _errorCode =

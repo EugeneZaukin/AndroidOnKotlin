@@ -1,7 +1,7 @@
 package com.eugene.androidonkotlin.model
 
 import com.google.gson.annotations.SerializedName
-data class Movie(
+data class MainMovie(
         val adult: Boolean,
 
         @SerializedName("backdrop_path")

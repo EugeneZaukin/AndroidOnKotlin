@@ -1,5 +1,5 @@
 package com.eugene.androidonkotlin.model
 
 data class JsonWelcome(
-    val results: List<Movie>
+    val results: List<MainMovie>
 )

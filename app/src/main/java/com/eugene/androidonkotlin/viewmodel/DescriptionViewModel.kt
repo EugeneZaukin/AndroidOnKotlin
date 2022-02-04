@@ -2,9 +2,7 @@ package com.eugene.androidonkotlin.viewmodel
 
 import androidx.lifecycle.ViewModel
 import com.eugene.androidonkotlin.CodeErrors
-import com.eugene.androidonkotlin.model.Movie
-import com.eugene.androidonkotlin.repository.local.LocalRepository
-import com.eugene.androidonkotlin.repository.local.LocalRepositoryImpl
+import com.eugene.androidonkotlin.model.MainMovie
 import com.eugene.androidonkotlin.repository.remote.IRepository
 import com.eugene.androidonkotlin.repository.remote.IRepositoryImpl
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -63,7 +61,7 @@ class DescriptionViewModel(
 
     }
 
-    fun saveMovieToDB(movie: Movie) {
+    fun saveMovieToDB(mainMovie: MainMovie) {
 //        historyRepository.saveEntity(Movie(movie.title, "", movie.rating, ""))
     }
 }
