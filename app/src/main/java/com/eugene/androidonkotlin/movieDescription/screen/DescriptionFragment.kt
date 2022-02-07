@@ -4,8 +4,8 @@ import android.os.Bundle
 import androidx.fragment.app.*
 import android.view.*
 import android.widget.Toast
-import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.eugene.androidonkotlin.databinding.DescriptionFragmentBinding
 import com.eugene.androidonkotlin.common.data.model.MainMovie
@@ -16,6 +16,7 @@ class DescriptionFragment : Fragment() {
     private var _binding: DescriptionFragmentBinding? = null
     private val binding get() = _binding!!
     private val viewModel by viewModels<DescriptionViewModel>()
+    private val movieId get() = arguments?.getLong(KEY_ID) ?: 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,8 +28,7 @@ class DescriptionFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val id = arguments?.getLong("movie id")
-        viewModel.saveId(id!!)
+        viewModel.saveId(movieId)
         displayMovie()
         goBackToFragment()
         viewModel.getMovieFromServer()
@@ -65,7 +65,7 @@ class DescriptionFragment : Fragment() {
 
     private fun goBackToFragment() {
         binding.backButton.setOnClickListener {
-            parentFragmentManager.popBackStack()
+            findNavController().navigateUp()
         }
     }
 
@@ -92,12 +92,6 @@ class DescriptionFragment : Fragment() {
     }
 
     companion object {
-        const val BUNDLE_EXTRA = "movie"
-
-        fun newInstance(movieId: Long): DescriptionFragment {
-            val fragment = DescriptionFragment()
-            fragment.arguments = bundleOf("movie id" to movieId)
-            return fragment
-        }
+        const val KEY_ID = "movie id"
     }
 }

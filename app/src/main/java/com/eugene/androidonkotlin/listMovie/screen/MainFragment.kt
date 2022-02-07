@@ -3,8 +3,10 @@ package com.eugene.androidonkotlin.listMovie.screen
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.*
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.eugene.androidonkotlin.R
 import com.eugene.androidonkotlin.databinding.MainFragmentBinding
 import com.eugene.androidonkotlin.movieDescription.screen.DescriptionFragment
@@ -78,10 +80,10 @@ class MainFragment : Fragment() {
     }
 
     private fun addTransaction(movieId: Long) {
-        parentFragmentManager.beginTransaction()
-            .replace(R.id.main_container, DescriptionFragment.newInstance(movieId))
-            .addToBackStack("main")
-            .commitAllowingStateLoss()
+        findNavController().navigate(
+            R.id.action_mainFragment_to_descriptionFragment,
+            bundleOf(DescriptionFragment.KEY_ID to movieId)
+        )
     }
 
     override fun onDestroy() {
