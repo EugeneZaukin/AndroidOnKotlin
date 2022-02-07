@@ -1,7 +1,8 @@
-package com.eugene.androidonkotlin.repository.remote
+package com.eugene.androidonkotlin.common.data.repository
 
 import com.eugene.androidonkotlin.BuildConfig
-import com.eugene.androidonkotlin.model.*
+import com.eugene.androidonkotlin.common.data.model.DescriptionMovie
+import com.eugene.androidonkotlin.common.data.model.JsonWelcome
 import io.reactivex.rxjava3.core.Single
 import retrofit2.http.GET
 import retrofit2.http.Path

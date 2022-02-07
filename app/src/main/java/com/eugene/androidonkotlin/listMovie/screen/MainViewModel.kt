@@ -1,10 +1,10 @@
-package com.eugene.androidonkotlin.viewmodel
+package com.eugene.androidonkotlin.listMovie.screen
 
 import androidx.lifecycle.ViewModel
-import com.eugene.androidonkotlin.CodeErrors
-import com.eugene.androidonkotlin.model.MainMovie
-import com.eugene.androidonkotlin.repository.remote.IRepository
-import com.eugene.androidonkotlin.repository.remote.IRepositoryImpl
+import com.eugene.androidonkotlin.common.screen.CodeErrors
+import com.eugene.androidonkotlin.common.data.model.MainMovie
+import com.eugene.androidonkotlin.common.data.repository.IRepository
+import com.eugene.androidonkotlin.common.data.repository.IRepositoryImpl
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.channels.BufferOverflow

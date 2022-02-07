@@ -1,8 +1,9 @@
-package com.eugene.androidonkotlin
+package com.eugene.androidonkotlin.common
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.eugene.androidonkotlin.view.main.MainFragment
+import com.eugene.androidonkotlin.R
+import com.eugene.androidonkotlin.listMovie.screen.MainFragment
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

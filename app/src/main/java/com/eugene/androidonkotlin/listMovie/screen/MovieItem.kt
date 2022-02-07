@@ -1,10 +1,10 @@
-package com.eugene.androidonkotlin.view.main
+package com.eugene.androidonkotlin.listMovie.screen
 
 import android.view.*
 import com.bumptech.glide.Glide
 import com.eugene.androidonkotlin.R
 import com.eugene.androidonkotlin.databinding.MainMovieItemBinding
-import com.eugene.androidonkotlin.model.MainMovie
+import com.eugene.androidonkotlin.common.data.model.MainMovie
 import com.mikepenz.fastadapter.binding.AbstractBindingItem
 
 class MovieItem(private val mainMovie: MainMovie): AbstractBindingItem<MainMovieItemBinding>() {

@@ -1,4 +1,4 @@
-package com.eugene.androidonkotlin.view.details
+package com.eugene.androidonkotlin.remains.view
 
 import android.content.Context
 import android.os.Bundle

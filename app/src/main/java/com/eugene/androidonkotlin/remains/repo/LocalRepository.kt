@@ -1,6 +1,6 @@
-package com.eugene.androidonkotlin.repository.local
+package com.eugene.androidonkotlin.remains.repo
 
-import com.eugene.androidonkotlin.model.MainMovie
+import com.eugene.androidonkotlin.common.data.model.MainMovie
 
 interface LocalRepository {
     fun getAllHistory():List<MainMovie>

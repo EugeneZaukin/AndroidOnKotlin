@@ -1,4 +1,4 @@
-package com.eugene.androidonkotlin.view.details
+package com.eugene.androidonkotlin.remains.view
 
 //class HistoryAdapter: RecyclerView.Adapter<HistoryAdapter.RecyclerItemViewHolder>() {
 //    private var data: List<Movie> = arrayListOf()

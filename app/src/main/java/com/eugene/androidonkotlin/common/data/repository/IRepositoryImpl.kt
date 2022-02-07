@@ -1,6 +1,8 @@
-package com.eugene.androidonkotlin.repository.remote
+package com.eugene.androidonkotlin.common.data.repository
 
-import com.eugene.androidonkotlin.model.*
+import com.eugene.androidonkotlin.common.data.model.DescriptionMovie
+import com.eugene.androidonkotlin.common.data.model.JsonWelcome
+import com.eugene.androidonkotlin.common.data.model.MainMovie
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 import retrofit2.Retrofit

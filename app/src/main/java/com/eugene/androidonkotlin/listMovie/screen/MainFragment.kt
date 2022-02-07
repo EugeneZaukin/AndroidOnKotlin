@@ -1,4 +1,4 @@
-package com.eugene.androidonkotlin.view.main
+package com.eugene.androidonkotlin.listMovie.screen
 
 import android.os.Bundle
 import android.view.*
@@ -7,8 +7,7 @@ import androidx.fragment.app.*
 import androidx.lifecycle.lifecycleScope
 import com.eugene.androidonkotlin.R
 import com.eugene.androidonkotlin.databinding.MainFragmentBinding
-import com.eugene.androidonkotlin.view.details.DescriptionFragment
-import com.eugene.androidonkotlin.viewmodel.MainViewModel
+import com.eugene.androidonkotlin.movieDescription.screen.DescriptionFragment
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.mikepenz.fastadapter.diff.FastAdapterDiffUtil

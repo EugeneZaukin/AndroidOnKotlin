@@ -1,4 +1,4 @@
-package com.eugene.androidonkotlin.model
+package com.eugene.androidonkotlin.common.data.model
 
 import com.google.gson.annotations.SerializedName
 

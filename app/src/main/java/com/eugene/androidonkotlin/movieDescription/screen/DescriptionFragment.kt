@@ -1,4 +1,4 @@
-package com.eugene.androidonkotlin.view.details
+package com.eugene.androidonkotlin.movieDescription.screen
 
 import android.os.Bundle
 import androidx.fragment.app.*
@@ -8,8 +8,7 @@ import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.eugene.androidonkotlin.databinding.DescriptionFragmentBinding
-import com.eugene.androidonkotlin.model.MainMovie
-import com.eugene.androidonkotlin.viewmodel.DescriptionViewModel
+import com.eugene.androidonkotlin.common.data.model.MainMovie
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
