@@ -30,6 +30,7 @@ class DescriptionFragment : Fragment() {
         val id = arguments?.getLong("movie id")
         viewModel.saveId(id!!)
         displayMovie()
+        goBackToFragment()
         viewModel.getMovieFromServer()
     }
 
@@ -55,6 +56,12 @@ class DescriptionFragment : Fragment() {
             launch {
                 viewModel.movieOverview.collect { binding.descriptionOverview.text = it }
             }
+        }
+    }
+
+    private fun goBackToFragment() {
+        binding.backButton.setOnClickListener {
+            parentFragmentManager.popBackStack()
         }
     }
 
