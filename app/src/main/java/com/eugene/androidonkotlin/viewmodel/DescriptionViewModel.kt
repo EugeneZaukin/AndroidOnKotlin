@@ -28,15 +28,11 @@ class DescriptionViewModel(
     private val _movieOverview = MutableStateFlow<String>("")
     val movieOverview get() = _movieOverview.asStateFlow()
 
-    private val _error =
+    private val _errorCode =
         MutableSharedFlow<CodeErrors>(0, 1, BufferOverflow.DROP_OLDEST)
-    val error = _error.asSharedFlow()
+    val errorCode = _errorCode.asSharedFlow()
 
-    private val _switchDescriptionFragment: MutableSharedFlow<Int> =
-        MutableSharedFlow(0, 1, BufferOverflow.DROP_OLDEST)
-    val switchDescriptionFragment get() = _switchDescriptionFragment.asSharedFlow()
-
-    private var id: Long = 0;
+    private var id: Long = 0
 
     fun saveId(id: Long) {
         this.id = id
@@ -55,7 +51,14 @@ class DescriptionViewModel(
                     _movieImage.value = it.backdropPath
                     _movieOverview.value = it.overview
                 },
-                { println(it) }
+                {
+                    _loadingProgress.value = 0f
+                    when {
+                        it.toString().contains("404") -> _errorCode.tryEmit(CodeErrors.REQUEST_ERROR)
+                        it.toString().contains("500") -> _errorCode.tryEmit(CodeErrors.SERVER_ERROR)
+                        else -> _errorCode.tryEmit(CodeErrors.NETWORK_ERROR)
+                    }
+                }
             )
 
 

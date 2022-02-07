@@ -3,6 +3,7 @@ package com.eugene.androidonkotlin.view.details
 import android.os.Bundle
 import androidx.fragment.app.*
 import android.view.*
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
@@ -55,6 +56,10 @@ class DescriptionFragment : Fragment() {
 
             launch {
                 viewModel.movieOverview.collect { binding.descriptionOverview.text = it }
+            }
+
+            launch {
+                viewModel.errorCode.collect { Toast.makeText(context, it.idMessage, Toast.LENGTH_SHORT).show() }
             }
         }
     }
