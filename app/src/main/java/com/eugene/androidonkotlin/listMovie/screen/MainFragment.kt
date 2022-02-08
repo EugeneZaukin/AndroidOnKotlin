@@ -36,6 +36,7 @@ class MainFragment : Fragment() {
         initRecyclerView()
         displayMovies()
         openDescriptionMovie()
+        addSwipeToRefresh()
         viewModel.getMoviesFromServer()
     }
 
@@ -52,7 +53,7 @@ class MainFragment : Fragment() {
     private fun displayMovies() {
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             launch {
-                viewModel.loadingProgress.collect { binding.loadingLayout.alpha = it }
+                viewModel.loadingProgress.collect { binding.swipeToRefresh.isRefreshing = it }
             }
 
             launch {
@@ -84,6 +85,12 @@ class MainFragment : Fragment() {
             R.id.action_mainFragment_to_descriptionFragment,
             bundleOf(DescriptionFragment.KEY_ID to movieId)
         )
+    }
+
+    private fun addSwipeToRefresh() {
+        binding.swipeToRefresh.setOnRefreshListener {
+            viewModel.getMoviesFromServer()
+        }
     }
 
     override fun onDestroy() {

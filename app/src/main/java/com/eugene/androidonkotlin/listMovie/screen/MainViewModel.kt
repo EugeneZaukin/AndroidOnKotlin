@@ -9,8 +9,9 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
+
 class MainViewModel(private val repoImp: IRepository = IRepositoryImpl()) : ViewModel() {
-    private val _loadingProgress = MutableStateFlow<Float>(1f)
+    private val _loadingProgress = MutableStateFlow<Boolean>(false)
     val loadingProgress get() = _loadingProgress.asStateFlow()
 
     private val _moviesList = MutableStateFlow<List<MainMovie>>(listOf())
@@ -25,7 +26,7 @@ class MainViewModel(private val repoImp: IRepository = IRepositoryImpl()) : View
     val switchDescriptionFragment get() = _switchDescriptionFragment.asSharedFlow()
 
     fun getMoviesFromServer() {
-        _loadingProgress.value = 1f
+        _loadingProgress.value = true
 
         repoImp.getMoviesFromServer()
             .subscribeOn(Schedulers.io())
@@ -33,10 +34,10 @@ class MainViewModel(private val repoImp: IRepository = IRepositoryImpl()) : View
             .subscribe(
                 {
                     _moviesList.value = it.results
-                    _loadingProgress.value = 0f
+                    _loadingProgress.value = false
                 },
                 {
-                    _loadingProgress.value = 0f
+                    _loadingProgress.value = false
                     when {
                         it.toString().contains("404") -> _errorCode.tryEmit(CodeErrors.REQUEST_ERROR)
                         it.toString().contains("500") -> _errorCode.tryEmit(CodeErrors.SERVER_ERROR)
