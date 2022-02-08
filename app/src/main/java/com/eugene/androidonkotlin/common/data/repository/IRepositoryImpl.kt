@@ -1,22 +1,9 @@
 package com.eugene.androidonkotlin.common.data.repository
 
-import com.eugene.androidonkotlin.common.data.model.DescriptionMovie
-import com.eugene.androidonkotlin.common.data.model.JsonWelcome
-import com.eugene.androidonkotlin.common.data.model.MainMovie
+import com.eugene.androidonkotlin.common.data.model.*
 import io.reactivex.rxjava3.core.Single
-import io.reactivex.rxjava3.schedulers.Schedulers
-import retrofit2.Retrofit
-import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
-import retrofit2.converter.gson.GsonConverterFactory
 
-class IRepositoryImpl: IRepository {
-
-    private val movieApi = Retrofit.Builder()
-        .baseUrl("https://api.themoviedb.org/")
-        .addConverterFactory(GsonConverterFactory.create())
-        .addCallAdapterFactory(RxJava3CallAdapterFactory.createWithScheduler(Schedulers.io()))
-        .build().create(MovieAPi::class.java)
-
+class IRepositoryImpl(private val movieApi: MovieAPi): IRepository {
     override fun getMoviesFromServer(): Single<JsonWelcome> {
         return movieApi.getMovies()
     }

@@ -31,43 +31,13 @@ android {
         it.buildConfigField "String", "MY_API_KEY", apiKey
     }
 
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField "String", "TYPE", '"RELEASE"'
-        }
-
-        beta {
-            initWith debug
-            versionNameSuffix ".beta"
-            buildConfigField "String", "TYPE", '"BETA"'
-        }
-
-        debug {
-            versionNameSuffix ".debug"
-            buildConfigField "String", "TYPE", '"DEBUG"'
-        }
-    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
         jvmTarget = '1.8'
-    }
-
-    flavorDimensions 'version'
-    productFlavors {
-        freeConfig {
-            dimension 'version'
-            versionNameSuffix '.free'
-        }
-
-        paid {
-            dimension 'version'
-            versionNameSuffix '.paid'
-        }
     }
 }
 
@@ -118,6 +88,10 @@ dependencies {
 
     //Pull To Refresh
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+
+    //Dagger2
+    implementation 'com.google.dagger:dagger:2.28.3'
+    kapt 'com.google.dagger:dagger-compiler:2.28.3'
 }
 
 

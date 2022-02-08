@@ -4,13 +4,15 @@ import androidx.lifecycle.ViewModel
 import com.eugene.androidonkotlin.common.screen.CodeErrors
 import com.eugene.androidonkotlin.common.data.model.MainMovie
 import com.eugene.androidonkotlin.common.data.repository.IRepository
-import com.eugene.androidonkotlin.common.data.repository.IRepositoryImpl
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
+import javax.inject.Inject
 
-class MainViewModel(private val repoImp: IRepository = IRepositoryImpl()) : ViewModel() {
+class MainViewModel @Inject constructor(
+    private val remoteRepo: IRepository
+): ViewModel() {
     private val _loadingProgress = MutableStateFlow<Boolean>(false)
     val loadingProgress get() = _loadingProgress.asStateFlow()
 
@@ -28,7 +30,7 @@ class MainViewModel(private val repoImp: IRepository = IRepositoryImpl()) : View
     fun getMoviesFromServer() {
         _loadingProgress.value = true
 
-        repoImp.getMoviesFromServer()
+        remoteRepo.getMoviesFromServer()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(

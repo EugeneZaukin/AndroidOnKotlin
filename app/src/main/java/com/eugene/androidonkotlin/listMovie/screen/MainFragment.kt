@@ -8,6 +8,7 @@ import androidx.fragment.app.*
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.eugene.androidonkotlin.R
+import com.eugene.androidonkotlin.common.appComponent
 import com.eugene.androidonkotlin.databinding.MainFragmentBinding
 import com.eugene.androidonkotlin.movieDescription.screen.DescriptionFragment
 import com.mikepenz.fastadapter.FastAdapter
@@ -19,9 +20,11 @@ import kotlinx.coroutines.launch
 class MainFragment : Fragment() {
     private var _binding: MainFragmentBinding? = null
     private val binding get() = _binding!!
-    private val viewModel by viewModels<MainViewModel>()
     private lateinit var itemAdapter: ItemAdapter<MovieItem>
     private lateinit var fastAdapter: FastAdapter<MovieItem>
+    private val viewModel by viewModels<MainViewModel> {
+        requireContext().appComponent.viewModelFactory()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

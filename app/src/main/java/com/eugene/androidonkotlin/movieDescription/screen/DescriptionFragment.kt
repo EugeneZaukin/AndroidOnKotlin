@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.eugene.androidonkotlin.common.appComponent
 import com.eugene.androidonkotlin.databinding.DescriptionFragmentBinding
 import com.eugene.androidonkotlin.common.data.model.MainMovie
 import kotlinx.coroutines.flow.collect
@@ -15,8 +16,10 @@ import kotlinx.coroutines.launch
 class DescriptionFragment : Fragment() {
     private var _binding: DescriptionFragmentBinding? = null
     private val binding get() = _binding!!
-    private val viewModel by viewModels<DescriptionViewModel>()
     private val movieId get() = arguments?.getLong(KEY_ID) ?: 0
+    private val viewModel by viewModels<DescriptionViewModel> {
+        requireContext().appComponent.viewModelFactory()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

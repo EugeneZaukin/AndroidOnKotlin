@@ -4,17 +4,14 @@ import androidx.lifecycle.ViewModel
 import com.eugene.androidonkotlin.common.screen.CodeErrors
 import com.eugene.androidonkotlin.common.data.model.MainMovie
 import com.eugene.androidonkotlin.common.data.repository.IRepository
-import com.eugene.androidonkotlin.common.data.repository.IRepositoryImpl
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import kotlinx.coroutines.channels.BufferOverflow
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.*
+import javax.inject.Inject
 
-class DescriptionViewModel(
+class DescriptionViewModel @Inject constructor(
 //    private val historyRepository: LocalRepository = LocalRepositoryImpl(getHistoryDao()),
-    private val repoImp: IRepository = IRepositoryImpl()
+    private val remoteRepo: IRepository
 ): ViewModel() {
     private val _loadingProgress = MutableStateFlow<Float>(1f)
     val loadingProgress get() = _loadingProgress.asStateFlow()
@@ -42,7 +39,7 @@ class DescriptionViewModel(
     fun getMovieFromServer() {
         _loadingProgress.value = 1f
 
-        repoImp.getMovieFromServer(id)
+        remoteRepo.getMovieFromServer(id)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {
