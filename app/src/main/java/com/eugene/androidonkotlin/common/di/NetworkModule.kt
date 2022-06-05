@@ -14,10 +14,7 @@ class NetworkModule {
     fun api(retrofit: Retrofit): MovieAPi = retrofit.create(MovieAPi::class.java)
 
     @Provides
-    fun retrofit(
-        gsonConverterFactory: GsonConverterFactory,
-        rxJava3CallAdapterFactory: RxJava3CallAdapterFactory
-    ): Retrofit {
+    fun retrofit(gsonConverterFactory: GsonConverterFactory): Retrofit {
         return Retrofit.Builder()
             .baseUrl("https://api.themoviedb.org/")
             .addConverterFactory(gsonConverterFactory)
@@ -26,8 +23,4 @@ class NetworkModule {
 
     @Provides
     fun gsonConverterFactory(): GsonConverterFactory = GsonConverterFactory.create()
-
-    @Provides
-    fun rxJavaCallAdapter(): RxJava3CallAdapterFactory =
-        RxJava3CallAdapterFactory.createWithScheduler(Schedulers.io())
 }
