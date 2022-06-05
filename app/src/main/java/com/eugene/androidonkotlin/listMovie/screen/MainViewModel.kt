@@ -1,7 +1,6 @@
 package com.eugene.androidonkotlin.listMovie.screen
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.eugene.androidonkotlin.common.screen.CodeErrors
 import com.eugene.androidonkotlin.common.data.model.MainMovie
 import com.eugene.androidonkotlin.common.data.repository.IRepository
@@ -36,15 +35,17 @@ class MainViewModel @Inject constructor(
                 _moviesList.tryEmit(remoteRepo.getMoviesFromServer().results)
                 _loadingProgress.value = false
             } catch (exp: Exception) {
-                when {
-                    exp.toString().contains("404") ->
-                        _errorCode.tryEmit(CodeErrors.REQUEST_ERROR)
-                    exp.toString().contains("500") ->
-                        _errorCode.tryEmit(CodeErrors.SERVER_ERROR)
-                    else ->
-                        _errorCode.tryEmit(CodeErrors.NETWORK_ERROR)
-                }
+                _loadingProgress.value = false
+                handleError(exp)
             }
+        }
+    }
+
+    private fun handleError(exp: Exception) {
+        when {
+            exp.toString().contains("404") -> _errorCode.tryEmit(CodeErrors.REQUEST_ERROR)
+            exp.toString().contains("500") -> _errorCode.tryEmit(CodeErrors.SERVER_ERROR)
+            else -> _errorCode.tryEmit(CodeErrors.NETWORK_ERROR)
         }
     }
 
