@@ -21,7 +21,6 @@ class NetworkModule {
         return Retrofit.Builder()
             .baseUrl("https://api.themoviedb.org/")
             .addConverterFactory(gsonConverterFactory)
-            .addCallAdapterFactory(rxJava3CallAdapterFactory)
             .build()
     }
 

@@ -6,7 +6,7 @@ import com.eugene.androidonkotlin.common.data.model.MainMovie
 import io.reactivex.rxjava3.core.Single
 
 interface IRepository {
-    fun getMoviesFromServer(): Single<JsonWelcome>
+    suspend fun getMoviesFromServer(): JsonWelcome
 
     fun getMovieFromServer(movieId: Long): Single<DescriptionMovie>
 

@@ -9,7 +9,7 @@ import retrofit2.http.Path
 
 interface MovieAPi {
     @GET("4/list/1?page=1&api_key=${BuildConfig.MY_API_KEY}&language=ru")
-    fun getMovies(): Single<JsonWelcome>
+    suspend fun getMovies(): JsonWelcome
 
     @GET("3/movie/{movie_id}?api_key=${BuildConfig.MY_API_KEY}&language=ru")
     fun getMovie(@Path("movie_id") movieId: Long): Single<DescriptionMovie>
