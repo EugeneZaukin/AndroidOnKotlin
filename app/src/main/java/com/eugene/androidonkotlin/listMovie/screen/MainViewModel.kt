@@ -2,8 +2,9 @@ package com.eugene.androidonkotlin.listMovie.screen
 
 import androidx.lifecycle.*
 import com.eugene.androidonkotlin.common.screen.CodeErrors
-import com.eugene.androidonkotlin.common.data.model.MainMovie
 import com.eugene.androidonkotlin.common.data.repository.IRepository
+import com.eugene.androidonkotlin.common.extensions.toMovie
+import com.eugene.androidonkotlin.listMovie.screen.model.Movie
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
@@ -13,10 +14,10 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
     private val remoteRepo: IRepository
 ): ViewModel() {
-    private val _loadingProgress = MutableStateFlow<Boolean>(false)
+    private val _loadingProgress = MutableStateFlow(false)
     val loadingProgress get() = _loadingProgress.asStateFlow()
 
-    private val _moviesList = MutableStateFlow<List<MainMovie>>(listOf())
+    private val _moviesList = MutableStateFlow<List<Movie>>(listOf())
     val moviesList get() = _moviesList.asStateFlow()
 
     private val _errorCode =
@@ -32,7 +33,7 @@ class MainViewModel @Inject constructor(
 
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                _moviesList.tryEmit(remoteRepo.getMoviesFromServer().results)
+                _moviesList.tryEmit(remoteRepo.getMoviesFromServer().results.map { it.toMovie() })
                 _loadingProgress.value = false
             } catch (exp: Exception) {
                 _loadingProgress.value = false

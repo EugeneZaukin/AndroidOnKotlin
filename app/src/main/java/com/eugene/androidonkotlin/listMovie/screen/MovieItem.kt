@@ -4,10 +4,10 @@ import android.view.*
 import com.bumptech.glide.Glide
 import com.eugene.androidonkotlin.R
 import com.eugene.androidonkotlin.databinding.MainMovieItemBinding
-import com.eugene.androidonkotlin.common.data.model.MainMovie
+import com.eugene.androidonkotlin.listMovie.screen.model.Movie
 import com.mikepenz.fastadapter.binding.AbstractBindingItem
 
-class MovieItem(private val mainMovie: MainMovie): AbstractBindingItem<MainMovieItemBinding>() {
+class MovieItem(private val mainMovie: Movie): AbstractBindingItem<MainMovieItemBinding>() {
     override val type: Int
         get() = R.id.item_card
 
