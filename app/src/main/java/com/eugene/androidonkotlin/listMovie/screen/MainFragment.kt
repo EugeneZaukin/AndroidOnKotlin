@@ -14,7 +14,6 @@ import com.eugene.androidonkotlin.movieDescription.screen.DescriptionFragment
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.mikepenz.fastadapter.diff.FastAdapterDiffUtil
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class MainFragment : Fragment() {
@@ -37,7 +36,7 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
-        displayMovies()
+        initFlows()
         openDescriptionMovie()
         addSwipeToRefresh()
         viewModel.getMoviesFromServer()
@@ -53,20 +52,26 @@ class MainFragment : Fragment() {
         }
     }
 
-    private fun displayMovies() {
+    private fun initFlows() {
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            launch {
-                viewModel.loadingProgress.collect { binding.swipeToRefresh.isRefreshing = it }
-            }
+            with(viewModel) {
+                launch {
+                    loadingProgress.collect { binding.swipeToRefresh.isRefreshing = it }
+                }
 
-            launch {
-                viewModel.moviesList
-                    .collect { FastAdapterDiffUtil[itemAdapter] = it.map { movie -> MovieItem(movie) } }
-            }
+                launch {
+                    moviesList.collect {
+                        FastAdapterDiffUtil[itemAdapter] = it.map { movie -> MovieItem(movie) }
+                    }
+                }
 
-            launch {
-                viewModel.errorCode
-                    .collect { Toast.makeText(context, it.idMessage, Toast.LENGTH_SHORT).show() }
+                launch {
+                    errorCode.collect {
+                        Toast.makeText(context, it.idMessage, Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+                launch { switchDescriptionFragment.collect { addTransaction(it) } }
             }
         }
     }
@@ -75,11 +80,6 @@ class MainFragment : Fragment() {
         fastAdapter.onClickListener = { _, _, _, position ->
             viewModel.goToDescriptionScreen(position)
             false
-        }
-
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.switchDescriptionFragment
-                .collect { addTransaction(it) }
         }
     }
 
