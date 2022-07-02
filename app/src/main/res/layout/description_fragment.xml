@@ -20,13 +20,13 @@
         android:id="@+id/back_button"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:background="?android:selectableItemBackground"
+        android:background="@drawable/bg_circle_button_back"
         app:srcCompat="?attr/homeAsUpIndicator"
-        android:tint="@color/teal_200"
         android:layout_marginTop="10dp"
         android:layout_marginStart="10dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/black" />
 
     <TextView
         android:id="@+id/description_title"
