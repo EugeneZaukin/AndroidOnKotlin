@@ -14,6 +14,7 @@ import com.eugene.androidonkotlin.movieDescription.screen.DescriptionFragment
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.mikepenz.fastadapter.diff.FastAdapterDiffUtil
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class MainFragment : Fragment() {
@@ -24,6 +25,7 @@ class MainFragment : Fragment() {
     private val viewModel by viewModels<MainViewModel> {
         requireContext().appComponent.viewModelFactory()
     }
+    private var movieAdapter: MovieAdapter? = MovieAdapter() { viewModel.goToDescriptionScreen(it) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,7 +50,7 @@ class MainFragment : Fragment() {
             itemAnimator = null
             itemAdapter = ItemAdapter()
             fastAdapter = FastAdapter.Companion.with(itemAdapter)
-            adapter = fastAdapter
+            adapter = movieAdapter
         }
     }
 
@@ -72,6 +74,8 @@ class MainFragment : Fragment() {
                 }
 
                 launch { switchDescriptionFragment.collect { addTransaction(it) } }
+
+                launch { moviesPagedList.collectLatest { movieAdapter?.submitData(it) } }
             }
         }
     }
@@ -99,6 +103,7 @@ class MainFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+        movieAdapter = null
     }
 }
 
