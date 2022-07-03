@@ -20,8 +20,6 @@ import kotlinx.coroutines.launch
 class MainFragment : Fragment() {
     private var _binding: MainFragmentBinding? = null
     private val binding get() = _binding!!
-    private lateinit var itemAdapter: ItemAdapter<MovieItem>
-    private lateinit var fastAdapter: FastAdapter<MovieItem>
     private val viewModel by viewModels<MainViewModel> {
         requireContext().appComponent.viewModelFactory()
     }
@@ -39,17 +37,12 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
         initFlows()
-        openDescriptionMovie()
         addSwipeToRefresh()
-        viewModel.getMoviesFromServer()
     }
 
     private fun initRecyclerView() {
-        binding.recyclerViewMovies.apply {
+        with(binding.recyclerViewMovies) {
             setHasFixedSize(true)
-            itemAnimator = null
-            itemAdapter = ItemAdapter()
-            fastAdapter = FastAdapter.Companion.with(itemAdapter)
             adapter = movieAdapter
         }
     }
@@ -61,11 +54,7 @@ class MainFragment : Fragment() {
                     loadingProgress.collect { binding.swipeToRefresh.isRefreshing = it }
                 }
 
-                launch {
-                    moviesList.collect {
-                        FastAdapterDiffUtil[itemAdapter] = it.map { movie -> MovieItem(movie) }
-                    }
-                }
+                launch { moviesPagedList.collectLatest { movieAdapter?.submitData(it) } }
 
                 launch {
                     errorCode.collect {
@@ -74,16 +63,7 @@ class MainFragment : Fragment() {
                 }
 
                 launch { switchDescriptionFragment.collect { addTransaction(it) } }
-
-                launch { moviesPagedList.collectLatest { movieAdapter?.submitData(it) } }
             }
-        }
-    }
-
-    private fun openDescriptionMovie() {
-        fastAdapter.onClickListener = { _, _, _, position ->
-            viewModel.goToDescriptionScreen(position)
-            false
         }
     }
 
@@ -96,7 +76,7 @@ class MainFragment : Fragment() {
 
     private fun addSwipeToRefresh() {
         binding.swipeToRefresh.setOnRefreshListener {
-            viewModel.getMoviesFromServer()
+
         }
     }
 

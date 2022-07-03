@@ -10,7 +10,7 @@ interface IRepository {
 
     suspend fun getMovieFromServer(movieId: Long): DescriptionMovie
 
-    fun getPagedMovies(): Flow<PagingData<Movie>>
+    fun getPagedMovies(errorListener:(Exception) -> Unit): Flow<PagingData<Movie>>
 
     fun getMovieFromLocalServer(): List<MainMovie>
 }

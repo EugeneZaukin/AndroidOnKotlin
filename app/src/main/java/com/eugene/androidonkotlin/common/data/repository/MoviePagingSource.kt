@@ -6,7 +6,8 @@ import com.eugene.androidonkotlin.common.extensions.toMovie
 import com.eugene.androidonkotlin.listMovie.screen.model.Movie
 
 class MoviePagingSource(
-    private val movieAPi: MovieAPi
+    private val movieAPi: MovieAPi,
+    private val errorListener:(Exception) -> Unit
 ) : PagingSource<Int, Movie>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Movie> {
         val pageIndex = params.key ?: 1
@@ -15,10 +16,11 @@ class MoviePagingSource(
             val movies = movieAPi.getMovies(pageIndex).results.map { it.toMovie() }
             return LoadResult.Page(
                 data = movies,
-                prevKey = if (pageIndex == 0) null else pageIndex - 1,
+                prevKey = if (pageIndex == 1) null else pageIndex,
                 nextKey = if (movies.isNotEmpty()) pageIndex + 1 else null
             )
         } catch (e: Exception) {
+            errorListener(e)
             LoadResult.Error(e)
         }
     }

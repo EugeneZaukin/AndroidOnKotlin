@@ -11,10 +11,10 @@ class IRepositoryImpl(private val movieApi: MovieAPi): IRepository {
     override suspend fun getMovieFromServer(movieId: Long): DescriptionMovie =
         movieApi.getMovie(movieId)
 
-    override fun getPagedMovies(): Flow<PagingData<Movie>> {
+    override fun getPagedMovies(errorListener:(Exception) -> Unit): Flow<PagingData<Movie>> {
         return Pager(
             config = PagingConfig(pageSize = 20, enablePlaceholders = false, initialLoadSize = 20),
-            pagingSourceFactory = { MoviePagingSource(movieApi) }
+            pagingSourceFactory = { MoviePagingSource(movieApi, errorListener) }
         ).flow
     }
 
