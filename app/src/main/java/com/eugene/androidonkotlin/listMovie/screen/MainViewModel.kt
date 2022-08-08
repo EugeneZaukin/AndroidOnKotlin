@@ -23,9 +23,9 @@ class MainViewModel @Inject constructor(
         MutableSharedFlow(0, 1, BufferOverflow.DROP_OLDEST)
     val switchDescriptionFragment get() = _switchDescriptionFragment.asSharedFlow()
 
-    private var _moviesPagedList: Flow<PagingData<Movie>> =
-        remoteRepo.getPagedMovies(handleError())
-            .cachedIn(viewModelScope)
+    private var _moviesPagedList: Flow<PagingData<Movie>> = remoteRepo
+        .getPagedMovies(handleError())
+        .cachedIn(viewModelScope)
     val moviesPagedList get() = _moviesPagedList
 
     private fun handleError(): (Exception) -> Unit = { exp ->

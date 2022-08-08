@@ -11,9 +11,6 @@ import com.eugene.androidonkotlin.R
 import com.eugene.androidonkotlin.common.appComponent
 import com.eugene.androidonkotlin.databinding.MainFragmentBinding
 import com.eugene.androidonkotlin.movieDescription.screen.DescriptionFragment
-import com.mikepenz.fastadapter.FastAdapter
-import com.mikepenz.fastadapter.adapters.ItemAdapter
-import com.mikepenz.fastadapter.diff.FastAdapterDiffUtil
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -76,7 +73,8 @@ class MainFragment : Fragment() {
 
     private fun addSwipeToRefresh() {
         binding.swipeToRefresh.setOnRefreshListener {
-
+            checkNotNull(movieAdapter).refresh()
+            binding.swipeToRefresh.isRefreshing = false
         }
     }
 
