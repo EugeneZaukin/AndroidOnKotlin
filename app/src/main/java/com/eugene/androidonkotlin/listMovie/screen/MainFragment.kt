@@ -20,7 +20,7 @@ class MainFragment : Fragment() {
     private val viewModel by viewModels<MainViewModel> {
         requireContext().appComponent.viewModelFactory()
     }
-    private var movieAdapter: MovieAdapter? = MovieAdapter() { viewModel.goToDescriptionScreen(it) }
+    private var movieAdapter: MovieAdapter? = MovieAdapter { viewModel.goToDescriptionScreen(it) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
