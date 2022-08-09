@@ -1,12 +1,14 @@
 package com.eugene.androidonkotlin.common.data.repository
 
-import androidx.paging.PagingSource
-import androidx.paging.PagingState
-import com.eugene.androidonkotlin.common.extensions.toMovie
+import androidx.paging.*
+import com.eugene.androidonkotlin.common.data.repository.room.AppDataBase
+import com.eugene.androidonkotlin.common.extensions.*
 import com.eugene.androidonkotlin.listMovie.screen.model.Movie
+import kotlinx.coroutines.*
 
 class MoviePagingSource(
     private val movieAPi: MovieAPi,
+    private val dataBase: AppDataBase,
     private val errorListener:(Exception) -> Unit
 ) : PagingSource<Int, Movie>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Movie> {
@@ -14,6 +16,11 @@ class MoviePagingSource(
 
         return try {
             val movies = movieAPi.getMovies(pageIndex).results.map { it.toMovie() }
+
+            CoroutineScope(Dispatchers.IO).launch {
+                movies.forEach { dataBase.movieDao().insertMovie(it.toMovieDB()) }
+            }
+
             return LoadResult.Page(
                 data = movies,
                 prevKey = if (pageIndex == 1) null else pageIndex,

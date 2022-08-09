@@ -9,9 +9,7 @@ import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
-class MainViewModel @Inject constructor(
-    private val remoteRepo: IRepository
-): ViewModel() {
+class MainViewModel @Inject constructor(remoteRepo: IRepository): ViewModel() {
     private val _loadingProgress = MutableStateFlow(false)
     val loadingProgress get() = _loadingProgress.asStateFlow()
 

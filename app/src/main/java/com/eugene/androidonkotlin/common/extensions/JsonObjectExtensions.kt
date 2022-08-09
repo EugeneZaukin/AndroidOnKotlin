@@ -1,7 +1,7 @@
 package com.eugene.androidonkotlin.common.extensions
 
-import com.eugene.androidonkotlin.common.data.model.DescriptionMovie
-import com.eugene.androidonkotlin.common.data.model.MainMovie
+import com.eugene.androidonkotlin.common.data.model.*
+import com.eugene.androidonkotlin.common.data.repository.room.MovieDB
 import com.eugene.androidonkotlin.listMovie.screen.model.Movie
 import com.eugene.androidonkotlin.movieDescription.MovieDetails
 
@@ -40,6 +40,22 @@ fun DescriptionMovie.toDetailsMovie() =
         runtime = runtime,
         status = status,
         tagline = tagline,
+        title = title,
+        video = video,
+        voteAverage = voteAverage,
+        voteCount = voteCount
+    )
+
+fun Movie.toMovieDB() =
+    MovieDB (
+        adult = adult,
+        backdropPath = backdropPath,
+        idRemote = id,
+        originalTitle = originalTitle,
+        overview = overview,
+        popularity = popularity,
+        posterPath = posterPath,
+        releaseDate = releaseDate,
         title = title,
         video = video,
         voteAverage = voteAverage,
