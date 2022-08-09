@@ -9,7 +9,7 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.eugene.androidonkotlin.common.appComponent
 import com.eugene.androidonkotlin.databinding.DescriptionFragmentBinding
-import com.eugene.androidonkotlin.common.data.model.MainMovie
+import com.eugene.androidonkotlin.common.data.remoteRepo.model.MainMovie
 import kotlinx.coroutines.launch
 
 class DescriptionFragment : Fragment() {

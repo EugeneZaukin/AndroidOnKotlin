@@ -2,7 +2,7 @@ package com.eugene.androidonkotlin.common.di
 
 import android.content.Context
 import androidx.room.Room
-import com.eugene.androidonkotlin.common.data.repository.room.AppDataBase
+import com.eugene.androidonkotlin.common.data.databaseRepo.AppDataBase
 import dagger.Module
 import dagger.Provides
 

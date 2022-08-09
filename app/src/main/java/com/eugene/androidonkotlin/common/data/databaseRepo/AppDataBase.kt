@@ -1,4 +1,4 @@
-package com.eugene.androidonkotlin.common.data.repository.room
+package com.eugene.androidonkotlin.common.data.databaseRepo
 
 import androidx.room.Database
 import androidx.room.RoomDatabase

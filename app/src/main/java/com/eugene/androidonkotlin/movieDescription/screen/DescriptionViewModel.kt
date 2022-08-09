@@ -2,8 +2,8 @@ package com.eugene.androidonkotlin.movieDescription.screen
 
 import androidx.lifecycle.*
 import com.eugene.androidonkotlin.common.screen.CodeErrors
-import com.eugene.androidonkotlin.common.data.model.MainMovie
-import com.eugene.androidonkotlin.common.data.repository.IRepository
+import com.eugene.androidonkotlin.common.data.remoteRepo.model.MainMovie
+import com.eugene.androidonkotlin.common.data.remoteRepo.IRepository
 import com.eugene.androidonkotlin.common.extensions.toDetailsMovie
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.BufferOverflow

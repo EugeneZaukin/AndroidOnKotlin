@@ -1,4 +1,4 @@
-package com.eugene.androidonkotlin.common.data.repository.room
+package com.eugene.androidonkotlin.common.data.databaseRepo
 
 interface IDataBaseRepository {
     fun insertMovie(movie: MovieDB)

@@ -1,7 +1,7 @@
-package com.eugene.androidonkotlin.common.data.repository
+package com.eugene.androidonkotlin.common.data.remoteRepo
 
 import androidx.paging.*
-import com.eugene.androidonkotlin.common.data.repository.room.AppDataBase
+import com.eugene.androidonkotlin.common.data.databaseRepo.AppDataBase
 import com.eugene.androidonkotlin.common.extensions.*
 import com.eugene.androidonkotlin.listMovie.screen.model.Movie
 import kotlinx.coroutines.*

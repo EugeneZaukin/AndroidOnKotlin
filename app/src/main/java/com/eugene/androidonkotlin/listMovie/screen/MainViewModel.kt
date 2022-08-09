@@ -3,7 +3,7 @@ package com.eugene.androidonkotlin.listMovie.screen
 import androidx.lifecycle.*
 import androidx.paging.*
 import com.eugene.androidonkotlin.common.screen.CodeErrors
-import com.eugene.androidonkotlin.common.data.repository.IRepository
+import com.eugene.androidonkotlin.common.data.remoteRepo.IRepository
 import com.eugene.androidonkotlin.listMovie.screen.model.Movie
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*

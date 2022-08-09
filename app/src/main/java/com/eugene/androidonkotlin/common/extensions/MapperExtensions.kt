@@ -1,7 +1,7 @@
 package com.eugene.androidonkotlin.common.extensions
 
-import com.eugene.androidonkotlin.common.data.model.*
-import com.eugene.androidonkotlin.common.data.repository.room.MovieDB
+import com.eugene.androidonkotlin.common.data.remoteRepo.model.*
+import com.eugene.androidonkotlin.common.data.databaseRepo.MovieDB
 import com.eugene.androidonkotlin.listMovie.screen.model.Movie
 import com.eugene.androidonkotlin.movieDescription.MovieDetails
 

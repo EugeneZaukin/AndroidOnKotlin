@@ -1,7 +1,7 @@
-package com.eugene.androidonkotlin.common.data.repository
+package com.eugene.androidonkotlin.common.data.remoteRepo
 
 import com.eugene.androidonkotlin.BuildConfig
-import com.eugene.androidonkotlin.common.data.model.*
+import com.eugene.androidonkotlin.common.data.remoteRepo.model.*
 import retrofit2.http.*
 
 interface MovieAPi {

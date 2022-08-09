@@ -1,4 +1,4 @@
-package com.eugene.androidonkotlin.common.data.repository.room
+package com.eugene.androidonkotlin.common.data.databaseRepo
 
 class DataBaseRepositoryImpl(private val dataBase: AppDataBase) : IDataBaseRepository {
     override fun insertMovie(movie: MovieDB) {

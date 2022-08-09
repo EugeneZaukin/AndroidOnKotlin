@@ -1,4 +1,4 @@
-package com.eugene.androidonkotlin.common.data.model
+package com.eugene.androidonkotlin.common.data.remoteRepo.model
 
 import com.google.gson.annotations.SerializedName
 data class MainMovie(
